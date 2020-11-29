@@ -1,10 +1,12 @@
 ### Check example.js for below program solution
-``getPermutation([1,2,3])``
-`` productSum([5, 2, [7, -1], 3, [6, [-13, 8], 4]])``
-`` fibonacchi(10) ``
-
-### How to think when like your program in recursion 
+```sh 
+getPermutation([1,2,3])
+productSum([5, 2, [7, -1], 3, [6, [-13, 8], 4]])
+fibonacchi(10) 
 ```
+
+### Exercise for recursion on white board (for more clearity follow below exerciese)
+```sh
 1. Push called Fn on stack.
 2. Execute Fn body.
 
@@ -17,7 +19,7 @@ until...
      Resume executing the previous Fn.
 ```
 ### Cases to follow for creating recursion 
-```
+```sh
    1. Identify base case(s).
    2. Identify recursive case(s).
    3. Return where appropriate.
