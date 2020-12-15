@@ -2,7 +2,7 @@
 // eg -> arr = [1,2,3,4]
 // arr.slice(0,3) -> it will start from arr[0] and end on arr[2] --> output [1,2,3]
 // and if arr.slice(3) so it will start form the given index -->  output [4]
-
+// o(n log n) because we are always dividing array in half
 const arr = [8, 5, 2, 9, 5, 6, 3]
 
 
