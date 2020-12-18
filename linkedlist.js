@@ -58,8 +58,20 @@ function LinkedList() {
     * @param {*} value - the value to search for
     * @return {boolean} - true if value is found, otherwise false
     */
-    this.contains = function contains() {
-  
+    this.contains = function contains(ele) {
+        let status = false 
+        let currNode = this.head
+        while(currNode){
+            if(currNode.value == ele){
+                status = true
+            }
+            currNode = currNode.next
+        }
+        if(status){
+            console.log(`element found ${ele}`)
+        }else{
+            console.log('Element not found')
+        }
     }  
     /*
     * Checks if a node is the head of the linked list 
@@ -83,7 +95,9 @@ function LinkedList() {
 const ll = new LinkedList()
 
 ll.insert(10)
-
-ll.log()
-ll.removeTail()
-ll.log()
+ll.insert(20)
+ll.insert(30)
+ll.insert(40)
+ll.insert(50)
+ll.insert(60)
+ll.insert('saurabh')
