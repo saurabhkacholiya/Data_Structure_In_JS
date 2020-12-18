@@ -1,12 +1,17 @@
+function Node(value){
+    this.value = value
+    this.next = null
+}
+
 function LinkedList() {
-    this.node = null
+    this.head = null
 
     this.log = function log(){
-        console.log(JSON.stringify(this.node))
+        console.log(JSON.stringify(this.head))
     }
 
     this.printAll = function printAll(){
-        let currNode = this.node
+        let currNode = this.head
         while(currNode){
             console.log(currNode.value)
             currNode = currNode.next
@@ -14,20 +19,15 @@ function LinkedList() {
     }
 
     this.insert = function insert(value){
-        let lastNode = this.node
+        const node = new Node(value)
+        let lastNode = this.head
         if(lastNode){
             while(lastNode.next){
                 lastNode = lastNode.next
             }
-            lastNode.next = {
-                value,
-                next: null,
-            }
+            lastNode.next = node
         }else{
-            this.node = {
-                value,
-                next : null,
-            }
+            this.head = node
         }
     }
     /*
@@ -43,7 +43,7 @@ function LinkedList() {
     * @return {*} - the removed value
     */
     this.removeTail = function removeTail(){
-  
+
     }
     /*
     * Searches the linked list and returns true if it contains the value passed
