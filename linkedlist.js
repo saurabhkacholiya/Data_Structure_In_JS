@@ -6,8 +6,8 @@ function Node(value){
 function LinkedList() {
     this.head = null
 
-    this.log = function log(){
-        console.log(JSON.stringify(this.head,null,4))
+    this.log = function log(value = this.head){
+        console.log(JSON.stringify(value,null,4))
     }
 
     this.printAll = function printAll(){
@@ -79,7 +79,9 @@ function LinkedList() {
     * @return {boolean} - true if node is the head, otherwise false
     */
     this.isHead = function isHead() {
-  
+        let status = this.head.next == null 
+        if(status) log('true')
+        else log('false')
     }
     /*
     * Checks if a node is the tail of the linked list 
