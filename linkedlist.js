@@ -7,7 +7,7 @@ function LinkedList() {
     this.head = null
 
     this.log = function log(){
-        console.log(JSON.stringify(this.head))
+        console.log(JSON.stringify(this.head,null,4))
     }
 
     this.printAll = function printAll(){
@@ -43,7 +43,15 @@ function LinkedList() {
     * @return {*} - the removed value
     */
     this.removeTail = function removeTail(){
-
+        if(!this.head) return
+        let currNode = this.head
+        let prevOfCurrNode = this.head
+        while(currNode.next){
+            prevOfCurrNode = currNode
+            currNode = currNode.next
+        }
+        if(prevOfCurrNode.next) prevOfCurrNode.next = null
+        else this.head = null // only one item in the list
     }
     /*
     * Searches the linked list and returns true if it contains the value passed
@@ -75,9 +83,7 @@ function LinkedList() {
 const ll = new LinkedList()
 
 ll.insert(10)
-ll.insert(20)
-ll.insert(30)
-ll.insert(40)
 
-
-ll.printAll()
+ll.log()
+ll.removeTail()
+ll.log()
