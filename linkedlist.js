@@ -7,9 +7,9 @@ function LinkedList() {
 
     this.printAll = function printAll(){
         let currNode = this.node
-        while(currNode.next){
+        while(currNode){
             console.log(currNode.value)
-            currNode.next = currNode.next.next
+            currNode = currNode.next
         }
     }
 
@@ -78,4 +78,6 @@ ll.insert(10)
 ll.insert(20)
 ll.insert(30)
 ll.insert(40)
-ll.log()
+
+
+ll.printAll()
