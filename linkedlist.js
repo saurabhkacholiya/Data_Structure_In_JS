@@ -35,8 +35,25 @@ function LinkedList() {
     * @param {*} node - the node to remove
     * @return {*} value - the deleted node's value
     */
-    this.remove = function remove(){
-  
+
+    this.remove = function remove(ele){  // 10 
+        let elementFoud = false
+        var currNode = this.head
+        let prevOfCurrNode = null
+        while(currNode){
+            if(currNode.value == ele){
+                if(prevOfCurrNode == null){
+                    this.head = currNode.next // this works but the above doesn't
+                }else{
+                    prevOfCurrNode.next = currNode.next
+                }
+                elementFoud = true
+                break
+            }
+            prevOfCurrNode = currNode
+            currNode = currNode.next
+        }
+        elementFoud ? this.log() : this.log('Not found')
     }
     /*
     * Removes the value at the end of the linked list
@@ -78,18 +95,26 @@ function LinkedList() {
     * @param {{prev:Object|null, next:Object|null}} node - the node to check
     * @return {boolean} - true if node is the head, otherwise false
     */
-    this.isHead = function isHead() {
-        let status = this.head.next == null 
-        if(status) log('true')
-        else log('false')
+    this.isHead = function isHead(ele) {
+        let status = (this.head && this.head.value == ele)
+        if(status) this.log(true)
+        else this.log(false)
     }
     /*
     * Checks if a node is the tail of the linked list 
     * @param {{prev:Object|null, next:Object|null}} node - the node to check
     * @return {boolean} - true if node is the tail, otherwise false
     */
-    this.isTail = function isTail() {
-  
+    this.isTail = function isTail(ele) {
+        if(this.head == null){
+            this.log(false)
+            return
+        }
+        let currNode = this.head
+        while(currNode.next){
+            currNode = currNode.next
+        }
+        return currNode.value == ele ? this.log(true) : this.log(false)
     }
   }
 
@@ -101,5 +126,7 @@ ll.insert(20)
 ll.insert(30)
 ll.insert(40)
 ll.insert(50)
-ll.insert(60)
-ll.insert('saurabh')
+
+ll.log()
+
+ll.remove(10)
