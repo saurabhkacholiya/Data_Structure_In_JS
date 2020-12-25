@@ -21,6 +21,6 @@ const myStack = new Stack();
 
 myStack.push(45)
 
-// myStack.pop()
+myStack.peek()
 
 myStack.peek()
