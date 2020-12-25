@@ -5,6 +5,10 @@
 1. [Stack](#stack)
 1. [Recursion](#recursion)
 1. [LinkedList](#linkedList)
+1. [BinarySearch](#binarySearch)
+1. [MergeSort](#mergeSort)
+1. [BubbleSort](#bubbleSort)
+1. [Queue](#queue)
 1. To Be Continued
 
 ## Stack
@@ -348,4 +352,140 @@ ll.log()
 
 ll.remove(10)
 
+```
+## BinarySearch
+
+**[4.1](#binarySearch) Write Binary Search**
+
+```javascript
+binarySearch([0, 1, 21, 33, 45, 45, 61, 71, 72, 73],71)
+
+function binarySearch(arr,item){
+    let min = 0
+    let max = arr.length -1 
+    let guess 
+
+    while(min <= max){
+        guess = Math.round((min + max)/2)
+        if(arr[guess] == item){
+            return guess
+        }else{
+            if(arr[guess] < item){
+                min = guess + 1 
+            }else{
+                max = guess - 1
+            }
+        }
+    }
+
+    return -1
+}
+
+```
+
+## MergeSort
+
+**[4.1](#MergeSort) Write MergeSort**
+
+```javascript
+// slice method does not include the last given index 
+// eg -> arr = [1,2,3,4]
+// arr.slice(0,3) -> it will start from arr[0] and end on arr[2] --> output [1,2,3]
+// and if arr.slice(3) so it will start form the given index -->  output [4]
+// o(n log n) because we are always dividing array in half
+
+const arr = [8, 5, 2, 9, 5, 6, 3]
+
+console.log('input ', arr)
+console.log('output ',mergeSort(arr))
+
+function mergeSort(arr) {
+      if(arr.length == 1 ) return arr
+      const middle = Math.round(arr.length/2)
+      const left = arr.slice(0,middle)
+      const right = arr.slice(middle)
+      const sortedLeft = mergeSort(left)
+      const sortedRight = mergeSort(right)
+      return merge(sortedLeft,sortedRight)
+  }
+  
+  function merge(left,right){
+      const result = []
+      let leftIndex = 0
+      let rightIndex = 0
+      while(leftIndex < left.length && rightIndex < right.length){
+          if(left[leftIndex] < right[rightIndex]){
+              result.push(left[leftIndex])
+              leftIndex++
+          }else{
+              result.push(right[rightIndex])
+              rightIndex++
+          }
+      }
+      return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex))
+  }
+```
+
+## BubbleSort
+
+**[5.1](#BubbleSort) Write BubbleSort**
+
+```javascript
+
+// sort adjacent values 
+
+const arr = [9, 2, 5, 6, 4, 3, 7, 10, 1, 8];
+
+bubbleSort(arr)
+
+function swap(i,j,arr){
+    const temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+}
+
+function bubbleSort(arr){
+    for(let j = 0; j < arr.length; j++){
+        for (let i = 0; i < arr.length - j; i++) {
+            if(arr[i] > arr[i + 1]){
+                swap(i,i+1,arr)
+            }
+        }
+    }
+    console.log(arr)
+}
+```
+## Queue
+
+**[6.1](#queue) create queue**
+
+```javascript
+function Queue() {
+    this.storage = []
+
+    this.enqueue = function enqueue(value){
+        this.storage.push(value)
+    }
+    this.dequeue = function dequeue() {
+        console.log(this.storage.shift())
+    }
+
+    this.peek = function peek(){
+        console.log(this.storage[0])
+    }
+
+    this.log = () => console.log(this.storage)
+}
+
+const queue = new Queue()
+
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(39)
+queue.enqueue(40)
+
+queue.log()
+queue.dequeue()
+
+queue.peek()
 ```
