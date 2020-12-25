@@ -71,6 +71,10 @@ function filterString(item){
 
 **[1.3](#stack--balanced-string) Return the perfect balanced tree**
 ```javascript 
+const string = "([])(){}(())()()"
+
+balancedBrackets(string)
+
 function balancedBrackets(string) {
 	if(!string.length){
 		return false
