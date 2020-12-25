@@ -3,6 +3,7 @@
 
 ## Table of Contents
 1. [Stack](#stack)
+1. [Recursion](#recursion)
 1. To Be Continued
 
 ## Stack
@@ -107,4 +108,71 @@ function balancedBrackets(string) {
 	return arr.length === 0
 }
 
+```
+## Recursion
+**[2.1](#recursion--find-product-sum) Find the product sum according to the degree**
+
+```javascript
+// Sample Input: array=array = [5, 2, [7, -1], 3, [6, [-13, 8], 4]]
+// Sample Output: 12 (calculated as: 5 + 2 + 2*(7 + -1) + 3 + 2*(6 + 3 * (-13 + 8))
+
+productSum([5, 2, [7, -1], 3, [6, [-13, 8], 4]])
+
+function productSum(array,multipler = 1) { 
+    let sum = 0
+	array.forEach(item => {
+		if(Array.isArray(item)){
+			sum += productSum(item,multipler + 1)
+		}else{
+			sum += item
+		}
+	})
+	return sum * multipler
+}
+```
+
+**[2.2](#recursion--find-permutation) Find the permutation of string**
+
+```javascript
+
+productSum([5, 2, [7, -1], 3, [6, [-13, 8], 4]])
+
+getPermutation([1,2,3])
+
+function getPermutation(arr){
+	let permutation = []
+	permutationHelper(0,arr,permutation)
+	return permutation
+}
+
+function permutationHelper(i,arr,permutation){
+	if(i === arr.length -1){
+		permutation.push(arr.slice())
+	}else{
+		for(let j = i ; j < arr.length ; j++){
+			swap(i,j,arr)
+			permutationHelper(i + 1, arr, permutation)
+			swap(i,j,arr)
+		}
+	}
+}
+
+function swap(i,j,array){
+	temp = array[i]
+	array[i] = array[j]
+	array[j] = temp
+}
+```
+
+**[2.3](#recursion--find-fibonacchi) Find the fibonacchi of given element**
+
+```javascript
+
+fibonacchi(10)
+
+function fibonacchi(n){
+	if(n == 1) return 0
+	if(n == 2) return 1
+	return fibonacchi(n - 2) + fibonacchi(n -1)
+}
 ```
