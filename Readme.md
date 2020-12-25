@@ -37,7 +37,7 @@ myStack.peek()
 ```
 <a name="short-path"></a><a name="1.2"></a>
 
-- **[1.2](#short-stack) find short path valid unix command**
+**[1.2](#short-stack) find short path valid unix command**
 ```javascript
 const path = "/../../foo/../../bar/baz"
 
