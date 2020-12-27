@@ -103,11 +103,34 @@ function DoublyLinkedList() {
         }
     }
 
+    this.removeAtIndex = function(index){
+        if(index > this.length){
+            console.log('Index is greater')
+            return
+        }
+        if(index == 0){
+            this.shift()
+        }else if(index == this.length){
+            this.pop()
+        }else{
+            let currNode = this.head
+            while(index){
+                currNode = currNode.next
+                index--
+            }
+            const afterElem = currNode.next 
+            const beforeElem = currNode.prev 
+            afterElem.prev = beforeElem
+            beforeElem.next = afterElem
+            this.length--
+        }
+    }
+
     this.log = function(){
         if(this.head){
             let currNode = this.head
             while(currNode){
-                console.log(currNode)
+                console.log(currNode.value)
                 currNode = currNode.next
             }
         }else{
@@ -120,8 +143,8 @@ const dll = new DoublyLinkedList()
 
 dll.push(10)
 dll.push(20)
+dll.push(30)
+dll.push(40)
 
-dll.insertAtIndex(15,1)
-dll.insertAtIndex(55,1)
-
+dll.removeAtIndex(4)
 dll.log()
