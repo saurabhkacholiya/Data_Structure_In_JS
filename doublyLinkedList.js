@@ -77,37 +77,51 @@ function DoublyLinkedList() {
         this.length++
     }
 
+    this.insertAtIndex = function(val,index){
+        if(index > this.length){
+            console.log('Index is greater than lenght')
+            return
+        }
+        if(index == 0){
+            this.unshift(val)
+        }else if(index == this.length){
+            this.push(val)
+        }else{
+            const newNode = new Node(val)
+            let currNode = this.head
+            let loopValue = 1
+            while(loopValue < index){
+                currNode = currNode.next
+                loopValue++
+            }
+            const afterNode = currNode.next
+            newNode.next = currNode.next
+            newNode.prev = currNode
+            afterNode.prev = newNode
+            currNode.next = newNode
+            this.length++
+        }
+    }
+
     this.log = function(){
-        console.log('-------start--------')
-        console.log(this.head)
-        console.log('-------end--------')
+        if(this.head){
+            let currNode = this.head
+            while(currNode){
+                console.log(currNode)
+                currNode = currNode.next
+            }
+        }else{
+            console.log('List Empty')
+        }
     }
 }
 
 const dll = new DoublyLinkedList()
 
-// dll.push(10)
-// dll.push(20)
-// dll.push(30)
+dll.push(10)
+dll.push(20)
 
-dll.unshift(45)
-dll.unshift(55)
-// dll.unshift(65)
+dll.insertAtIndex(15,1)
+dll.insertAtIndex(55,1)
 
 dll.log()
-
-
-// dll.log()
-
-// dll.shift()
-// dll.log()
-
-// dll.shift()
-// dll.log()
-
-// dll.shift()
-// dll.log()
-
-
-// dll.pop()
-
