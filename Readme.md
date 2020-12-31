@@ -253,6 +253,43 @@ function powerset(arr) {
 }
 ```
 
+**[2.5](#recursion--Interleaving-String) Interleaving String**
+
+```javascript
+/* 
+Given strings s1, s2, and s3, find whether s3 is formed by /an interleaving of s1 and s2.
+
+Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
+Output: true
+
+*/
+const one = "saur";
+const three = "sakaurcho";
+const two = "kacho";
+
+checkIfString(one, two, three);
+
+function checkIfString(one, two, three) {
+  if (three.length !== one.length + two.length) return false;
+  console.log(recursivePart(one, two, three, 0, 0));
+}
+
+function recursivePart(one, two, three, i, j) {
+  let k = i + j;
+  if (k == three.length) return true;
+
+  if (i < one.length && one[i] == three[k]) {
+    if (recursivePart(one, two, three, i + 1, j)) return true;
+  }
+
+  if (j < two.length && two[j] == three[k]) {
+    return recursivePart(one, two, three, i, j + 1);
+  }
+
+  return false;
+}
+```
+
 ## LinkedList
 
 **[3.1](#linkedList--create-ll) create linkedList**
