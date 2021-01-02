@@ -288,6 +288,59 @@ function recursivePart(one, two, three, i, j) {
 
   return false;
 }
+
+//----------------with caching---------------
+
+function checkIfStringWithCaching(one, two, three) {
+  if (three.length !== one.length + two.length) {
+    return false;
+  }
+  const cache = new Array(one.length + 1)
+    .fill(0)
+    .map((_) => new Array(two.length + 1).fill(null));
+  return areInterwoven(one, two, three, 0, 0, cache);
+}
+
+function recursivePartWithCaching(one, two, three, i, j, cache) {
+  if (cache[i][j] !== null) return cache[i][j];
+  const k = i + j;
+  if (k == three.length) return true;
+
+  if (i < one.length && one[i] == three[k]) {
+    cache[i][j] = recursivePartWithCaching(one, two, three, i + 1, j, cache);
+    if (cache[i][j]) return true;
+  }
+
+  if (j < two.length && two[j] == three[k]) {
+    cache[i][j] = recursivePartWithCaching(one, two, three, i, j + 1, cache);
+    return cache[i][j];
+  }
+
+  return false;
+}
+```
+
+**[2.6](#recursion--Find-binary-tree-topologies)Find-binary-tree-topologies**
+
+```javascript
+calculateBinaryTreeTopologies(17);
+
+function calculateBinaryTreeTopologies(n) {
+  console.log(caculateTopologies(n));
+}
+
+function caculateTopologies(n, cache = { 0: 1 }) {
+  if (cache[n]) return cache[n];
+  let totalNumber = 0;
+  for (let left = 0; left < n; left++) {
+    const right = n - 1 - left;
+    const leftValue = caculateTopologies(left, cache);
+    const rightValue = caculateTopologies(right, cache);
+    totalNumber += leftValue * rightValue;
+  }
+  cache[n] = totalNumber;
+  return totalNumber;
+}
 ```
 
 ## LinkedList
