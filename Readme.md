@@ -496,6 +496,35 @@ ll.log();
 ll.remove(10);
 ```
 
+**[3.2](#linkedList-remove) Remove Nth Node From End of List**
+[Link on leet codet](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+```javascript
+var removeNthFromEnd = function (head, n) {
+  let count = 1;
+  let first = head;
+  let second = head;
+
+  while (count <= n) {
+    second = second.next;
+    count++;
+  }
+
+  if (second == null) {
+    return first.next;
+  }
+
+  while (second.next !== null) {
+    second = second.next;
+    first = first.next;
+  }
+
+  first.next = first.next.next;
+
+  return head;
+};
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
