@@ -525,6 +525,44 @@ var removeNthFromEnd = function (head, n) {
 };
 ```
 
+**[3.3](#linkedList-cycle)Find Linked List Cycle**
+[Link on leet codet](https://leetcode.com/problems/linked-list-cycle/submissions/)
+
+```javascript
+var hasCycle = function (head) {
+  if (head == null) return false;
+  let fastPointer = head.next;
+  let slowPointer = head;
+
+  while (slowPointer !== fastPointer) {
+    if (fastPointer == null || fastPointer.next == null) {
+      return false;
+    }
+    slowPointer = slowPointer.next;
+    fastPointer = fastPointer.next.next;
+  }
+
+  return true;
+};
+
+//-------find linked list cycled element--------
+
+function findLoopElement(head) {
+  let slowPointer = head.next;
+  let fastPointer = head.next.next;
+  while (slowPointer !== fastPointer) {
+    slowPointer = slowPointer.next;
+    fastPointer = fastPointer.next.next;
+  }
+  slowPointer = head; // to find the orgin of the loop
+  while (slowPointer !== fastPointer) {
+    slowPointer = slowPointer.next;
+    fastPointer = fastPointer.next;
+  }
+  return slowPointer;
+}
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
