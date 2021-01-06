@@ -563,6 +563,25 @@ function findLoopElement(head) {
 }
 ```
 
+**[3.4](#linkedList-reverse-linkedlist) Reverse Linked List**
+[Link on leet codet](https://leetcode.com/problems/reverse-linked-list/submissions/)
+
+```javascript
+var reverseList = function (head) {
+  let pointer1 = null;
+  let pointer2 = head;
+  let pointer3 = null;
+
+  while (pointer2 !== null) {
+    pointer3 = pointer2.next;
+    pointer2.next = pointer1; // reverse the link
+    pointer1 = pointer2;
+    pointer2 = pointer3;
+  }
+  return pointer1;
+};
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
