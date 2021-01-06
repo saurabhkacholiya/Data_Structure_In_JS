@@ -582,6 +582,39 @@ var reverseList = function (head) {
 };
 ```
 
+**[3.5](#linkedList-reverse-linkedlist-between-given-no) Reverse Linked List II**
+[Link on leet codet](https://leetcode.com/problems/reverse-linked-list-ii/)
+
+```javascript
+var reverseBetween = function (head, m, n) {
+  let start = head;
+  let curr = head;
+  let count = 1;
+
+  while (count < m) {
+    start = curr;
+    curr = curr.next;
+    count++;
+  }
+
+  let prev = null;
+  let tail = curr;
+
+  while (count <= n) {
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+    count++;
+  }
+
+  start.next = prev;
+  tail.next = curr;
+
+  return m == 1 ? prev : head;
+};
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
