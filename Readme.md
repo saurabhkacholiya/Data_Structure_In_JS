@@ -615,6 +615,37 @@ var reverseBetween = function (head, m, n) {
 };
 ```
 
+**[3.6](#linkedList-Merge-Two-Sorted-Lists) Merge Two Sorted Lists**
+[Link on leet codet](https://leetcode.com/problems/reverse-linked-list-ii/)
+
+```javascript
+var mergeTwoLists = function (l1, l2) {
+  if (!l1 && !l2) return l1;
+  if (!l1 && l2) return l2;
+  if (!l2 && l1) return l1;
+
+  let p1 = l1;
+  let p2 = l2;
+  let prev = null;
+
+  while (p1 !== null && p2 !== null) {
+    if (p1.val < p2.val) {
+      prev = p1;
+      p1 = p1.next;
+    } else {
+      if (prev) prev.next = p2;
+      prev = p2;
+      p2 = p2.next;
+      prev.next = p1;
+    }
+  }
+
+  if (p1 == null) prev.next = p2;
+
+  return l1.val < l2.val ? l1 : l2;
+};
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
