@@ -69,7 +69,7 @@ class LRUCache {
               node.next = this.tail // this.head = node 
               this.head = node // this.head.next = this.tail
           }else {
-              if(this.tail == node) this.removeTail() // why we need remove tail bcz we want to maintain the order 
+              if(this.tail == node) this.removeTail() // why we need remove tail bcz we want to maintain the most recent used node 
               node.removeBindings()
               this.head.prev = node 
               node.next = this.head
