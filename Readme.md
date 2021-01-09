@@ -497,7 +497,7 @@ ll.remove(10);
 ```
 
 **[3.2](#linkedList-remove) Remove Nth Node From End of List**
-[Link on leet codet](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+[Link on leet code](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 
 ```javascript
 var removeNthFromEnd = function (head, n) {
@@ -526,7 +526,7 @@ var removeNthFromEnd = function (head, n) {
 ```
 
 **[3.3](#linkedList-cycle)Find Linked List Cycle**
-[Link on leet codet](https://leetcode.com/problems/linked-list-cycle/submissions/)
+[Link on leet code](https://leetcode.com/problems/linked-list-cycle/submissions/)
 
 ```javascript
 var hasCycle = function (head) {
@@ -564,7 +564,7 @@ function findLoopElement(head) {
 ```
 
 **[3.4](#linkedList-reverse-linkedlist) Reverse Linked List**
-[Link on leet codet](https://leetcode.com/problems/reverse-linked-list/submissions/)
+[Link on leet code](https://leetcode.com/problems/reverse-linked-list/submissions/)
 
 ```javascript
 var reverseList = function (head) {
@@ -583,7 +583,7 @@ var reverseList = function (head) {
 ```
 
 **[3.5](#linkedList-reverse-linkedlist-between-given-no) Reverse Linked List II**
-[Link on leet codet](https://leetcode.com/problems/reverse-linked-list-ii/)
+[Link on leet code](https://leetcode.com/problems/reverse-linked-list-ii/)
 
 ```javascript
 var reverseBetween = function (head, m, n) {
@@ -616,7 +616,7 @@ var reverseBetween = function (head, m, n) {
 ```
 
 **[3.6](#linkedList-Merge-Two-Sorted-Lists) Merge Two Sorted Lists**
-[Link on leet codet](https://leetcode.com/problems/reverse-linked-list-ii/)
+[Link on leet code](https://leetcode.com/problems/reverse-linked-list-ii/)
 
 ```javascript
 var mergeTwoLists = function (l1, l2) {
@@ -798,6 +798,122 @@ dll.removeAtIndex(4);
 dll.log();
 ```
 
+**[4.2](#doublyLinkedList-LRU-Cache) Create LRU-Cache**
+[Link on leet code](https://leetcode.com/problems/lru-cache/submissions/)
+
+```javascript
+var LRUCache = function (capacity) {
+  this.maxSize = capacity;
+  this.cache = {};
+  this.listOfMostRecentUsed = new DoublyLinkedList();
+  this.currentSize = 0;
+
+  this.evictLeastUsed = () => {
+    if (!this.listOfMostRecentUsed.tail) return;
+    const keyToDelete = this.listOfMostRecentUsed.tail.key;
+    this.listOfMostRecentUsed.removeTail();
+    delete this.cache[keyToDelete];
+  };
+
+  this.updateHeader = (node) => {
+    this.listOfMostRecentUsed.setHeader(node);
+  };
+};
+
+LRUCache.prototype.get = function (key) {
+  if (key in this.cache) {
+    this.listOfMostRecentUsed.setHeader(this.cache[key]);
+    return this.cache[key].value;
+  }
+  return -1;
+};
+
+LRUCache.prototype.put = function (key, value) {
+  if (!(key in this.cache)) {
+    if (this.maxSize == this.currentSize) {
+      this.evictLeastUsed();
+    } else {
+      this.currentSize += 1;
+    }
+
+    this.cache[key] = new DoublyLinkedListNode(key, value);
+  } else {
+    if (key in this.cache) {
+      this.cache[key].value = value;
+    }
+  }
+
+  this.updateHeader(this.cache[key]);
+};
+
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  setHeader(node) {
+    //1. head is node
+    //2. head is null
+    //3. head is equal to tail so only one element present
+    //4. if node == tail
+
+    if (this.head == node) {
+      return;
+    } else if (this.head == null) {
+      this.head = node;
+      this.tail = node;
+    } else if (this.head == this.tail) {
+      this.tail.prev = node;
+      node.next = this.tail;
+      this.head = node;
+    } else {
+      if (this.tail == node) this.removeTail();
+      node.removeBinding();
+      this.head.prev = node;
+      node.next = this.head;
+      this.head = node;
+    }
+  }
+
+  removeTail() {
+    //if tail is null
+    //if tail ==  head
+
+    if (this.tail == null) return;
+    if (this.head == this.tail) {
+      this.head = null;
+      this.tail = null;
+      return;
+    }
+    this.tail = this.tail.prev;
+    this.tail.next = null;
+  }
+}
+
+class DoublyLinkedListNode {
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+    this.prev = null;
+    this.next = null;
+  }
+
+  removeBinding() {
+    if (this.prev !== null) {
+      this.prev.next = this.next;
+    }
+
+    if (this.next !== null) {
+      this.next.prev = this.prev;
+    }
+
+    this.prev = null;
+    this.next = null;
+  }
+}
+```
+
 ## BinarySearch
 
 **[5.1](#binarySearch) Write Binary Search**
@@ -835,7 +951,8 @@ function binarySearch(arr, item) {
 // slice method does not include the last given index
 // eg -> arr = [1,2,3,4]
 // arr.slice(0,3) -> it will start from arr[0] and end on arr[2] --> output [1,2,3]
-// and if arr.slice(3) so it will start form the given index -->  output [4]
+// and if arr.slice(3) so it will slice form the given index -->
+// eg let a = [1,2,3]; a.slice(1) output will be [2,3]
 // o(n log n) because we are always dividing array in half
 
 const arr = [8, 5, 2, 9, 5, 6, 3];
