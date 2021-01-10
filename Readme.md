@@ -692,6 +692,9 @@ function reverseLinkedList(head) {
 }
 ```
 
+**[3.7.2](#linkedList-palindrome) Palindrome Linked List (recursive solution)**
+[Link on leet code](https://leetcode.com/problems/palindrome-linked-list/)
+
 ```javascript
 var isPalindrome = function (head) {
   let curr = head;
