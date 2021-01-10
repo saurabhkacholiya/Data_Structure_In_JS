@@ -646,6 +646,52 @@ var mergeTwoLists = function (l1, l2) {
 };
 ```
 
+**[3.7](#linkedList-palindrome) Palindrome Linked List**
+[Link on leet code](https://leetcode.com/problems/palindrome-linked-list/)
+
+```javascript
+var isPalindrome = function (head) {
+  if (!head) return true;
+  if (head.next == null) return true;
+  let slowPointer = head;
+  let fastPointer = head;
+
+  while (fastPointer !== null && fastPointer.next !== null) {
+    slowPointer = slowPointer.next;
+    fastPointer = fastPointer.next.next;
+  }
+
+  if (slowPointer == fastPointer) {
+    if (!slowPointer.next) return false;
+    const nextPOinter = slowPointer.next;
+    return slowPointer.val == nextPOinter.val;
+  }
+
+  let reverseList = reverseLinkedList(slowPointer);
+  let firstHalfList = head;
+
+  while (reverseList !== null) {
+    if (reverseList.val !== firstHalfList.val) return false;
+    reverseList = reverseList.next;
+    firstHalfList = firstHalfList.next;
+  }
+
+  return true;
+};
+
+function reverseLinkedList(head) {
+  let prev = null;
+  let curr = head;
+  while (curr !== null) {
+    const nextNode = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = nextNode;
+  }
+  return prev;
+}
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
