@@ -692,6 +692,26 @@ function reverseLinkedList(head) {
 }
 ```
 
+```javascript
+var isPalindrome = function (head) {
+  let curr = head;
+  function checkIfPalindrome(node) {
+    if (node == null) {
+      return true;
+    }
+    // traverse to the end of the list first
+    const prevResult = checkIfPalindrome(node.next);
+    // when the call stack bounces back, compare the values
+    // from the head and from the bottom up
+    const computeResult = curr.val == node.val;
+    curr = curr.next;
+    return prevResult && computeResult;
+  }
+
+  return checkIfPalindrome(head);
+};
+```
+
 ## DoublyLinkedList
 
 **[4.1](#doublyLinkedList) Create DoublyLinkedList**
