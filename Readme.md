@@ -12,6 +12,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [MergeSort](#mergeSort)
 1. [BubbleSort](#bubbleSort)
 1. [Queue](#queue)
+1. [BinarySearchTree](#binarySearchTree)
 1. To Be Continued
 
 ## Stack
@@ -1118,4 +1119,31 @@ queue.log();
 queue.dequeue();
 
 queue.peek();
+```
+
+## BinarySearchTree
+
+**[9.1](#findClosestValueInBst) Find the closet value in BST**
+
+```javascript
+function findClosestValueInBst(tree, target) {
+  // Write your code here.
+  return bstHelper(tree, target, tree.value);
+}
+
+function bstHelper(tree, target, closet) {
+  if (tree == null) return closet;
+
+  if (Math.abs(target - closet) > Math.abs(tree.value - target)) {
+    closet = tree.value;
+  }
+
+  if (target > tree.value) {
+    return bstHelper(tree.right, target, closet);
+  } else if (target < tree.value) {
+    return bstHelper(tree.left, target, closet);
+  } else {
+    return closet;
+  }
+}
 ```
