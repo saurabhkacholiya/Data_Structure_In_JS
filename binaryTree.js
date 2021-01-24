@@ -23,38 +23,38 @@ As always, you can change describe to xdescribe to prevent the unit tests from r
 */
 
 class Tree {
-constructor(){
-    this.root = null
-}
+    constructor(){
+        this.root = null
+    }
 
-toObject(){
-    return this.root
-}
+    toObject(){
+        return this.root
+    }
 
-travesTheTree(node,root){
-    if(root){
-    if(node.value > root.value){
-        if(root.right){
-        this.travesTheTree(node,root.right)
+    travesTheTree(node,root){
+        if(root){
+        if(node.value > root.value){
+            if(root.right){
+                this.travesTheTree(node,root.right)
+            }else{
+                root.right = node
+            }
         }else{
-        root.right = node
+            if(root.left){
+                this.travesTheTree(node,root.left)
+            }else{
+                root.left = node
+            }
         }
-    }else{
-        if(root.left){
-        this.travesTheTree(node,root.left)
         }else{
-        root.left = node
+            this.root = node
         }
     }
-    }else{
-    this.root = node
-    }
-}
 
-add(value){
-    const newNode = new Node(value)
-    this.travesTheTree(newNode,this.root)
-}
+    add(value){
+        const newNode = new Node(value)
+        this.travesTheTree(newNode,this.root)
+    }
 }
   
 class Node{
