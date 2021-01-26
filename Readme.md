@@ -14,6 +14,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [Queue](#queue)
 1. [BinarySearchTree](#binarySearchTree)
 1. [InsertionSort](#insertionSort)
+1. [SelectionSort](#selectionSort)
 1. To Be Continued
 
 ## Stack
@@ -1170,5 +1171,44 @@ function swap(i, j, array) {
   const temp = array[j];
   array[j] = array[i];
   array[i] = temp;
+}
+```
+
+## SelectionSort
+
+**[11.1](#selectionSort) SelectionSort**
+
+```javascript
+function selectionSort(array) {
+  for (let i = 0; i < array.length; i++) {
+    let smallest = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[smallest]) {
+        swap(i, j, array);
+      }
+    }
+  }
+  return array;
+}
+
+// using while loop
+
+function selectionSort(array) {
+  let startIdx = 0;
+  while (startIdx < array.length) {
+    let smallest = startIdx;
+    for (let j = smallest + 1; j < array.length; j++) {
+      if (array[j] < array[smallest]) smallest = j;
+    }
+    swap(startIdx, smallest, array);
+    startIdx++;
+  }
+  return array;
+}
+
+function swap(i, j, array) {
+  const temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
 }
 ```
