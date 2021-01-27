@@ -15,6 +15,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [BinarySearchTree](#binarySearchTree)
 1. [InsertionSort](#insertionSort)
 1. [SelectionSort](#selectionSort)
+1. [QuickSort](#quickSort)
 1. To Be Continued
 
 ## Stack
@@ -1204,6 +1205,60 @@ function selectionSort(array) {
     startIdx++;
   }
   return array;
+}
+
+function swap(i, j, array) {
+  const temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
+}
+```
+
+## QuickSort
+
+**[12.1](#quickSort) QuickSort**
+
+```javascript
+// Algorithm
+// 1. base case when startIndex >= RightIndex
+// 2. let pivotIndex = startIndex
+// 3. let left be pivotIndex + 1 and let right be endIdx
+// 4. if leftIndex > pivotIndex and rightIndex < pivot swap()
+// 5. if left <= pivot : increment left
+// 6. if right >= pivot : increment right
+// 7. end of while loop swap(pivot,rightIdx)
+
+function quickSort(array) {
+  quickSortHelper(array, 0, array.length - 1);
+  return array;
+}
+
+function quickSortHelper(array, startIdx, endIdx) {
+  if (startIdx >= endIdx) return; // base case
+  const pivotIdx = startIdx;
+  let leftIdx = startIdx + 1;
+  let rightIdx = endIdx;
+
+  while (leftIdx <= rightIdx) {
+    if (array[leftIdx] > array[pivotIdx] && array[rightIdx] < array[pivotIdx]) {
+      swap(leftIdx, rightIdx, array);
+    }
+    if (array[leftIdx] <= array[pivotIdx]) leftIdx += 1;
+    if (array[rightIdx] >= array[pivotIdx]) rightIdx -= 1;
+  }
+  swap(pivotIdx, rightIdx, array);
+
+  let leftSideOfPivot = rightIdx - 1 - startIdx;
+  let rightSideOfPivot = endIdx - (rightIdx + 1);
+
+  const isLeftSideSmaller = leftSideOfPivot < rightSideOfPivot;
+  if (isLeftSideSmaller) {
+    quickSortHelper(array, startIdx, rightIdx - 1);
+    quickSortHelper(array, rightIdx + 1, endIdx);
+  } else {
+    quickSortHelper(array, rightIdx + 1, endIdx);
+    quickSortHelper(array, startIdx, rightIdx - 1);
+  }
 }
 
 function swap(i, j, array) {
