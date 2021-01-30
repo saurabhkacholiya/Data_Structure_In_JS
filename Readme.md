@@ -16,6 +16,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [InsertionSort](#insertionSort)
 1. [SelectionSort](#selectionSort)
 1. [QuickSort](#quickSort)
+1. [Heap](#heap)
 1. To Be Continued
 
 ## Stack
@@ -1266,4 +1267,124 @@ function swap(i, j, array) {
   array[i] = array[j];
   array[j] = temp;
 }
+```
+
+## Heap
+
+**[13.1](#heap)Create Min Heap**
+
+```javascript
+/*
+
+Min Heap 
+
+i -> current index 
+child One -> 2*i + 1
+child Two -> 2*i + 2
+Parent Node -> Math.floor((i - 1)/2)
+
+Insert:- 
+- add to last of heap
+- siftUp 
+    - compare node with parent node if parent node is bigger than swap
+
+Remove:-
+- swap last node with 1st node
+- pop the last node
+- siftDown on 1st node
+    - compare both the children node of the current index passed and select the children node with smaller value 
+    - compare smallestChildrenNode with current index passed
+
+- Time Complexity  
+    - sift down :- O(log n)  // where n is number of element in array 
+    - sift up :- O(log n)  // where n is number of element in array 
+    - insertion :- O(log n)  // where n is number of element in array 
+    - removal :- O(log n)  // where n is number of element in array 
+    - Build Heap:- O(n) while using sift down  // where n is number of element in array 
+                :- O(n log n) while using sift up  // where n is number of element in array 
+*/
+
+class MinHeap {
+  constructor(array) {
+    this.heap = this.buildHeap(array);
+  }
+
+  buildHeap(array) {
+    // Write your code here.
+    const lastIndex = array.length - 1;
+    const firstParentIdx = Math.floor((lastIndex - 1) / 2);
+    for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+      this.siftDown(currentIdx, lastIndex, array);
+    }
+    return array;
+  }
+
+  siftDown(currentIdx, endIdx, heap) {
+    // Write your code here.
+    let childOneIdx = currentIdx * 2 + 1;
+    while (childOneIdx <= endIdx) {
+      let childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
+      let indexToSwap = null;
+      if (childTwoIdx !== -1 && heap[childTwoIdx] < heap[childOneIdx]) {
+        indexToSwap = childTwoIdx;
+      } else {
+        indexToSwap = childOneIdx;
+      }
+
+      if (heap[indexToSwap] && heap[indexToSwap] < heap[currentIdx]) {
+        this.swap(indexToSwap, currentIdx, heap);
+        currentIdx = indexToSwap;
+        childOneIdx = currentIdx * 2 + 1;
+      } else {
+        return;
+      }
+    }
+  }
+
+  siftUp(currentIdx, heap) {
+    // Write your code here.
+    let parentIdx = Math.floor((currentIdx - 1) / 2);
+    while (currentIdx > 0 && heap[parentIdx] > heap[currentIdx]) {
+      this.swap(currentIdx, parentIdx, heap);
+      currentIdx = parentIdx;
+      parentIdx = Math.floor((currentIdx - 1) / 2);
+    }
+  }
+
+  peek() {
+    return this.heap[0];
+  }
+
+  remove() {
+    this.swap(0, this.heap.length - 1, this.heap);
+    const nodeToRemove = this.heap.pop();
+    this.siftDown(0, this.heap.length - 1, this.heap);
+    return nodeToRemove;
+  }
+
+  insert(value) {
+    this.heap.push(value);
+    this.siftUp(this.heap.length - 1, this.heap);
+  }
+
+  swap(i, j, array) {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
+const input = [48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41];
+
+let minHeapObj = new MinHeap(input);
+
+let count = 3;
+let thirdSmallestValue = null;
+
+while (count) {
+  thirdSmallestValue = minHeapObj.remove();
+  count--;
+}
+
+console.log("thirdSmallestValue is ", thirdSmallestValue);
 ```
