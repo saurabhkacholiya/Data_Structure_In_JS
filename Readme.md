@@ -1388,3 +1388,55 @@ while (count) {
 
 console.log("thirdSmallestValue is ", thirdSmallestValue);
 ```
+
+**[13.2](#heap-sort)Heap Sort**
+
+```javascript
+const arr = [8, 10, 150, 9, 5, 6, 3];
+
+maxHeap(arr);
+
+function maxHeap(arr) {
+  buildMaxHeap(arr);
+  for (let endIdx = arr.length - 1; endIdx >= 0; endIdx--) {
+    swap(0, endIdx, arr);
+    siftDown(0, endIdx - 1, arr);
+  }
+  console.log("arr is ", arr);
+}
+
+function buildMaxHeap(arr) {
+  const lastIdx = arr.length - 1;
+  const firstParentIdx = Math.floor((lastIdx - 1) / 2);
+  for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+    siftDown(currentIdx, lastIdx, arr);
+  }
+}
+
+function siftDown(currentIdx, endIdx, heap) {
+  let childOneIdx = currentIdx * 2 + 1;
+  while (childOneIdx <= endIdx) {
+    const childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
+    let idxToSwap;
+    if (childTwoIdx !== -1 && heap[childTwoIdx] > heap[childOneIdx]) {
+      idxToSwap = childTwoIdx;
+    } else {
+      idxToSwap = childOneIdx;
+    }
+
+    if (heap[idxToSwap] > heap[currentIdx]) {
+      swap(currentIdx, idxToSwap, heap);
+      currentIdx = idxToSwap;
+      childOneIdx = currentIdx * 2 + 1;
+    } else {
+      return;
+    }
+  }
+}
+
+function swap(i, j, arr) {
+  const temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+```
