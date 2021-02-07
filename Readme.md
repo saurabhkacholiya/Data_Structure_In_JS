@@ -17,7 +17,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [SelectionSort](#selectionSort)
 1. [QuickSort](#quickSort)
 1. [Heap](#heap)
-1. [Depth-First-Traversals](#dfs)
+1. [DFS](#dfs)
 1. To Be Continued
 
 ## Stack
@@ -1503,7 +1503,7 @@ function swap(i, j, arr) {
 }
 ```
 
-## Depth-First-Traversals
+## DFS
 
 **[14.1](#dfs) Depth first traversal's**
 
