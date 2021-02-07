@@ -18,6 +18,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [QuickSort](#quickSort)
 1. [Heap](#heap)
 1. [Depth-First Traversals](#dfs)
+1. [OtherProblem](#otherProblem)
 1. To Be Continued
 
 ## Stack
@@ -1151,6 +1152,67 @@ function bstHelper(tree, target, closet) {
     return closet;
   }
 }
+```
+
+**[9.2](#createBinaryTree) Create binary tree**
+
+```javascript
+/*
+
+Binary Search Tree!
+
+value - integer     - value being contained in the node
+left  - Node/object - the left node which itself may be another tree
+right - Node/object - the right node which itself may be another tree
+
+*/
+
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+
+  toObject() {
+    return this.root;
+  }
+
+  travesTheTree(node, root) {
+    if (root) {
+      if (node.value > root.value) {
+        if (root.right) {
+          this.travesTheTree(node, root.right);
+        } else {
+          root.right = node;
+        }
+      } else {
+        if (root.left) {
+          this.travesTheTree(node, root.left);
+        } else {
+          root.left = node;
+        }
+      }
+    } else {
+      this.root = node;
+    }
+  }
+
+  add(value) {
+    const newNode = new Node(value);
+    this.travesTheTree(newNode, this.root);
+  }
+}
+
+class Node {
+  constructor(value) {
+    this.left = null;
+    this.right = null;
+    this.value = value;
+  }
+}
+
+const nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
+const tree = new Tree();
+nums.map((num) => tree.add(num));
 ```
 
 ## InsertionSort
