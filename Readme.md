@@ -1503,7 +1503,7 @@ function swap(i, j, arr) {
 }
 ```
 
-## [Depth-First-Traversals](#dfs)
+## Depth-First-Traversals
 
 **[14.1](#dfs) Depth first traversal's**
 
