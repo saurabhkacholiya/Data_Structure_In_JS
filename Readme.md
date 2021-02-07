@@ -17,6 +17,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [SelectionSort](#selectionSort)
 1. [QuickSort](#quickSort)
 1. [Heap](#heap)
+1. [Depth-First Traversals](#dfs)
 1. To Be Continued
 
 ## Stack
@@ -1439,4 +1440,86 @@ function swap(i, j, arr) {
   arr[i] = arr[j];
   arr[j] = temp;
 }
+```
+
+## [Depth-First Traversals](#dfs)
+
+**[14.1](#dfs) Depth first traversal's**
+
+```javascript
+const tree = {
+  value: 8,
+  left: {
+    value: 4,
+    left: {
+      value: 3,
+      left: {
+        value: 2,
+        left: null,
+        right: null,
+      },
+      right: null,
+    },
+    right: {
+      value: 5,
+      left: null,
+      right: {
+        value: 7,
+        left: {
+          value: 6,
+          left: null,
+          right: null,
+        },
+      },
+    },
+  },
+  right: {
+    value: 12,
+    left: {
+      value: 10,
+      left: {
+        value: 9,
+        left: null,
+        right: null,
+      },
+      right: {
+        value: 11,
+        left: null,
+        right: null,
+      },
+    },
+  },
+};
+
+const preOrderTraverse = (node, array) => {
+  if (!node) return array;
+  array.push(node.value);
+  array = preOrderTraverse(node.left, array);
+  array = preOrderTraverse(node.right, array);
+  return array;
+};
+
+const inOrderTraverse = (node, array) => {
+  if (!node) return array;
+  array = inOrderTraverse(node.left, array);
+  array.push(node.value);
+  array = inOrderTraverse(node.right, array);
+  return array;
+};
+
+const postOrderTraverse = (node, array) => {
+  if (!node) return array;
+  array = postOrderTraverse(node.left, array);
+  array = postOrderTraverse(node.right, array);
+  array.push(node.value);
+  return array;
+};
+
+const value = postOrderTraverse(tree, []);
+console.log(JSON.stringify(value, null, 4));
+
+// Output should be preOrder, inOrder , postOrder
+// [8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11]
+// [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+// [2, 3, 6, 7, 5, 4, 9, 11, 10, 12, 8]
 ```
