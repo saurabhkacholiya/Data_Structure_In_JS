@@ -17,7 +17,8 @@ _A mostly reasonable collection of technical software development interview ques
 1. [SelectionSort](#selectionSort)
 1. [QuickSort](#quickSort)
 1. [Heap](#heap)
-1. [DFS](#dfs)
+1. [DFT](#dft)
+1. [BFT](#bft)
 1. To Be Continued
 
 ## Stack
@@ -1503,9 +1504,9 @@ function swap(i, j, arr) {
 }
 ```
 
-## DFS
+## DFT
 
-**[14.1](#dfs) Depth first traversal's**
+**[14.1](#dft) Depth first traversal's**
 
 ```javascript
 const tree = {
@@ -1583,4 +1584,83 @@ console.log(JSON.stringify(value, null, 4));
 // [8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11]
 // [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 // [2, 3, 6, 7, 5, 4, 9, 11, 10, 12, 8]
+```
+
+## BFT
+
+**[15.1] write Breadth first traversal**
+
+```javascript
+const tree = {
+  value: "A",
+  left: {
+    value: "B",
+    left: {
+      value: "D",
+      left: {
+        value: "G",
+        left: null,
+        right: null,
+      },
+      right: null,
+    },
+    right: {
+      value: "E",
+      left: null,
+      right: {
+        value: "H",
+        left: {
+          value: "K",
+          left: null,
+          right: null,
+        },
+      },
+    },
+  },
+  right: {
+    value: "C",
+    left: {
+      value: "F",
+      left: {
+        value: "I",
+        left: null,
+        right: null,
+      },
+      right: {
+        value: "J",
+        left: null,
+        right: null,
+      },
+    },
+    right: null,
+  },
+};
+
+const value = breadthFirstTraverse([tree], []);
+
+console.log(JSON.stringify(value, null, 4));
+
+// recursive
+function breadthFirstTraverse(queue, array) {
+  if (!queue || !queue.length) return array;
+  const node = queue.shift();
+  array.push(node.value);
+  if (node.left) queue.push(node.left);
+  if (node.right) queue.push(node.right);
+  return breadthFirstTraverse(queue, array);
+}
+
+// iterative
+function breadthFirstTraverseIterative(queue, array) {
+  if (!queue || !queue.length) return array;
+
+  while (queue.length) {
+    const node = queue.shift();
+    array.push(node.value);
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+
+  return array;
+}
 ```
