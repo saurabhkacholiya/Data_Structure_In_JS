@@ -19,6 +19,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [Heap](#heap)
 1. [DFT](#dft)
 1. [BFT](#bft)
+1. [PathFinding](#pathFinding)
 1. To Be Continued
 
 ## Stack
@@ -1663,4 +1664,105 @@ function breadthFirstTraverseIterative(queue, array) {
 
   return array;
 }
+```
+
+## PathFinding
+
+**[16.1] Dijkstra's algorithm click [here](https://codepen.io/btholt/pen/BJMxVM?editors=0010) to check your code for test cases**
+
+```javascript
+const NO_ONE = 0;
+const BY_A = 1;
+const BY_B = 2;
+
+// so actually y column is represented by 1st array and x is represent by second array
+
+const findShortestPathLength = (maze, [xA, yA], [xB, yB]) => {
+  const visited = maze.map((rows, y) =>
+    rows.map((point, x) => ({
+      closed: point === 1,
+      openedBy: NO_ONE,
+      length: 0,
+      x,
+      y,
+    }))
+  );
+  visited[yA][xA].openedBy = BY_A;
+  visited[yB][xB].openedBy = BY_B;
+
+  let aQueue = [visited[yA][xA]];
+  let bQueue = [visited[yB][xB]];
+  let iteration = 0;
+
+  while (aQueue.length && bQueue.length) {
+    iteration++;
+    const aNeighbor = aQueue.reduce(
+      (acc, neighbor) =>
+        acc.concat(getNeighbor(visited, neighbor.x, neighbor.y)),
+      []
+    );
+
+    aQueue = [];
+
+    for (let i = 0; i < aNeighbor.length; i++) {
+      const aObj = aNeighbor[i];
+      if (aObj.openedBy == BY_B) {
+        return aObj.length + iteration;
+      } else if (aObj.openedBy == NO_ONE) {
+        aObj.length = iteration;
+        aObj.openedBy = BY_A;
+        aQueue.push(aObj);
+      }
+    }
+
+    const bNeighbor = bQueue.reduce(
+      (acc, neighbor) =>
+        acc.concat(getNeighbor(visited, neighbor.x, neighbor.y)),
+      []
+    );
+
+    bQueue = [];
+
+    for (let i = 0; i < bNeighbor.length; i++) {
+      const bObj = bNeighbor[i];
+      if (bObj.openedBy == BY_A) {
+        return bObj.length + iteration;
+      } else if (bObj.openedBy == NO_ONE) {
+        bObj.length = iteration;
+        bObj.openedBy = BY_B;
+        bQueue.push(bObj);
+      }
+    }
+  }
+
+  return -1;
+};
+
+const getNeighbor = (visited, x, y) => {
+  const neighbor = [];
+  if (y - 1 >= 0 && !visited[y - 1][x].closed) {
+    neighbor.push(visited[y - 1][x]);
+  }
+  if (y + 1 < visited.length && !visited[y + 1][x].closed) {
+    neighbor.push(visited[y + 1][x]);
+  }
+  if (x - 1 >= 0 && !visited[y][x - 1].closed) {
+    neighbor.push(visited[y][x - 1]);
+  }
+  if (x + 1 < visited[0].length && !visited[y][x + 1].closed) {
+    neighbor.push(visited[y][x + 1]);
+  }
+  return neighbor;
+};
+
+const fourByFour = [
+  [2, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 2],
+];
+
+const value = findShortestPathLength(fourByFour, [0, 0], [3, 3]);
+
+console.log(JSON.stringify(value, null, 4));
 ```
