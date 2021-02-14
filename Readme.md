@@ -20,6 +20,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [DFT](#dft)
 1. [BFT](#bft)
 1. [PathFinding](#pathFinding)
+1. [Graph](#graph)
 1. To Be Continued
 
 ## Stack
@@ -1765,4 +1766,44 @@ const fourByFour = [
 const value = findShortestPathLength(fourByFour, [0, 0], [3, 3]);
 
 console.log(JSON.stringify(value, null, 4));
+```
+
+## Graph
+
+**[17.1] Find the most common job title [here](https://codepen.io/btholt/pen/KZYdKW?editors=0010) to check your code for test cases**
+
+```javascript
+// the getUser function and data comes from this CodePen: https://codepen.io/btholt/pen/NXJGwa?editors=0010
+// I recommend finishing these one at a time. if you put an x in front of the it so the function call is
+// xit it will not run
+const findMostCommonTitle = (myId, getUser, degreesOfSeparation) => {
+  let queue = [myId];
+  let seen = new Set();
+  let jobs = {};
+
+  for (let i = 0; i <= degreesOfSeparation; i++) {
+    queue = queue
+      .filter((id) => !seen.has(id))
+      .map(getUser)
+      .map((user) => {
+        jobs[user.title] = jobs[user.title] ? jobs[user.title] + 1 : 1;
+        seen.add(user.id);
+        return user;
+      })
+      .map((user) => user.connections)
+      .reduce((acc, connection) => acc.concat(connection), []);
+  }
+
+  let highestCount = 0;
+  let highestTitle = "";
+
+  Object.keys(jobs).forEach((item) => {
+    if (jobs[item] > highestCount) {
+      highestCount = jobs[item];
+      highestTitle = item;
+    }
+  });
+
+  return highestTitle;
+};
 ```
