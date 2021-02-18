@@ -229,6 +229,29 @@ function swap(i, j, array) {
 }
 ```
 
+```javascript
+// Without backtracking
+
+wrapper("abc");
+
+function wrapper(str) {
+  let soFar = "";
+  recursion(soFar, str);
+}
+
+function recursion(soFar, str) {
+  if (str == "") {
+    console.log(soFar);
+  } else {
+    for (let i = 0; i < str.length; i++) {
+      let next = soFar + str[i];
+      let remaining = str.substr(0, i) + str.substr(i + 1);
+      recursion(next, remaining);
+    }
+  }
+}
+```
+
 **[2.3](#recursion--find-fibonacchi) Find the fibonacchi of given element**
 
 ```javascript
