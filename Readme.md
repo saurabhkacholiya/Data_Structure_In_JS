@@ -252,6 +252,26 @@ function recursion(soFar, str) {
 }
 ```
 
+```javascript
+listSubSet("abc");
+
+function listSubSet(str) {
+  let soFar = "";
+  recursion(soFar, str);
+}
+
+function recursion(soFar, rest) {
+  if (rest == "") {
+    console.log("-> ", soFar);
+  } else {
+    //add to subset , remove from rest, recur
+    recursion(soFar + rest[0], rest.substr(1));
+    //don't add to subset,remove from rest recur
+    recursion(soFar, rest.substr(1));
+  }
+}
+```
+
 **[2.3](#recursion--find-fibonacchi) Find the fibonacchi of given element**
 
 ```javascript
@@ -1829,4 +1849,56 @@ const findMostCommonTitle = (myId, getUser, degreesOfSeparation) => {
 
   return highestTitle;
 };
+```
+
+**[17.2] Create A Maze Click on link to test your code [here](https://codepen.io/btholt/pen/YeWjNO?editors=0010)**
+
+```javascript
+function generateMaze(maze, [xStart, yStart]) {
+  nextNode(xStart, yStart, maze);
+  return maze;
+}
+
+function nextNode(x, y, maze) {
+  const node = maze[y][x];
+  node.visited = true;
+  randomizeDirection().forEach((direction) => {
+    const [xDir, yDir] = getModifier(direction);
+    if (
+      maze[y + yDir] &&
+      maze[y + yDir][x + xDir] &&
+      !maze[y + yDir][x + xDir].visited
+    ) {
+      node[direction] = false;
+      maze[y + yDir][x + xDir][getOppositeWall(direction)] = false;
+      nextNode(x + xDir, y + yDir, maze);
+    }
+  });
+}
+
+function getModifier(key) {
+  switch (key) {
+    case "n":
+      return [0, 1];
+    case "e":
+      return [1, 0];
+    case "s":
+      return [0, -1];
+    default:
+      return [-1, 0];
+  }
+}
+
+function getOppositeWall(key) {
+  switch (key) {
+    case "n":
+      return "s";
+    case "e":
+      return "w";
+    case "s":
+      return "n";
+    default:
+      return "e";
+  }
+}
 ```
