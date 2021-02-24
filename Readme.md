@@ -21,6 +21,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [BFT](#bft)
 1. [PathFinding](#pathFinding)
 1. [Graph](#graph)
+1. [Tries](#tries)
 1. To Be Continued
 
 ## Stack
@@ -1901,4 +1902,73 @@ function getOppositeWall(key) {
       return "e";
   }
 }
+```
+
+## Tries
+
+**[18.1](#autosuggestion) Create auto suggestion using tries click [here](https://codepen.io/btholt/pen/RQobyV?editors=0010) to test your code**
+
+```javascript
+const CITY_NAMES = require("./data");
+
+class Node {
+  constructor(string) {
+    this.children = [];
+    this.value = string[0] || "";
+    this.terminus = false;
+    if (string.length > 1) {
+      this.children.push(new Node(string.substr(1)));
+    } else {
+      this.terminus = true;
+    }
+  }
+
+  add(string) {
+    const value = string[0];
+    const next = string.substr(1);
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+      if (child.value == value) {
+        if (next) {
+          child.add(next);
+        } else {
+          child.terminus = true;
+        }
+        return;
+      }
+    }
+    this.children.push(new Node(string));
+  }
+
+  _complete(search, build, suggestions) {
+    if (suggestions.length >= 3 || (search && search[0] !== this.value)) {
+      return suggestions;
+    }
+    if (this.terminus) {
+      suggestions.push(`${build}${this.value}`);
+    }
+    this.children.forEach((child) =>
+      child._complete(search.substr(1), `${build}${this.value}`, suggestions)
+    );
+    return suggestions;
+  }
+
+  complete(string) {
+    return this.children
+      .map((child) => child._complete(string, "", []))
+      .reduce((acc, child) => acc.concat(child));
+  }
+}
+
+const createTrie = (words) => {
+  const root = new Node("");
+  words.forEach((word) => root.add(word.toLowerCase()));
+  return root;
+};
+
+const root = createTrie(CITY_NAMES.slice(0, 10));
+
+const completions = root.complete("");
+
+console.log(JSON.stringify(completions, null, 4));
 ```
