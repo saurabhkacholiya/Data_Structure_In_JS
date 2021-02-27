@@ -397,6 +397,17 @@ function caculateTopologies(n, cache = { 0: 1 }) {
 }
 ```
 
+**[2.7](#recursion--reverse_a_string) Reverse a string**
+
+```javascript
+console.log(reverseAString("hello"));
+
+function reverseString(str) {
+  if (str == "") return "";
+  else return reverseString(str.substr(1)) + str.chartAt(0);
+}
+```
+
 ## LinkedList
 
 **[3.1](#linkedList--create-ll) create linkedList**
