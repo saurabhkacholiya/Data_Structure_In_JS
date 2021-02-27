@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getData() {
+        console.log("getData");
+      }
+
+      function deBounce(callBack, delay) {
+        let timer;
+        return function () {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            callBack();
+          }, delay);
+        };
+      }
+      const betterFunction = deBounce(getData, 300);
+    </script>
+    <input type="text" onkeyup="betterFunction()" />
+  </body>
+</html>

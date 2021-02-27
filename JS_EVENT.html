@@ -1,0 +1,57 @@
+<!-- EVENT BUBBLING - CAPTURING - DELEGATION -->
+<!-- EVENT DELEGATION IS BASED ON EVENT BUBBLING  -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kacholiya</title>
+  </head>
+  <style>
+    div {
+      min-height: 100px;
+      min-width: 100px;
+      padding: 30px;
+      border: 1px solid black;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div id="grandparent">
+        <div id="parent">
+          <div id="child"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //   document.getElementById("grandparent").addEventListener(
+      //     "click",
+      //     () => console.log("grand parent clicked"),
+      //     false // des1 && false is bubbling and true is capturing
+      //   );
+
+      //   document.getElementById("parent").addEventListener(
+      //     "click",
+      //     (e) => {
+      //       console.log("parent clicked");
+      //       e.stopPropagation(); // stops bubbling to go further up the chain and also stop capturing to go further down the chain
+      //     },
+      //     false
+      //   );
+
+      //   document
+      //     .getElementById("child")
+      //     .addEventListener("click", () => console.log("child clicked"), false);
+
+      document
+        .getElementById("main")
+        .addEventListener("click", (e) => console.log(e.target));
+    </script>
+  </body>
+</html>
+
+<!-- 
+    des1 :- if all are false and clicked on child log order is => child,parent,grand parent
+            if all are true and clicked on child log order is => grand parent, parent , child
+
+            event propagation happens top down hierarchy 1st capturing(top-down) and then bubbling (down-up)
+ -->
