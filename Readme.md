@@ -22,6 +22,7 @@ _A mostly reasonable collection of technical software development interview ques
 1. [PathFinding](#pathFinding)
 1. [Graph](#graph)
 1. [Tries](#tries)
+1. [RadixSort](#radixSort)
 1. To Be Continued
 
 ## Stack
@@ -1971,4 +1972,49 @@ const root = createTrie(CITY_NAMES.slice(0, 10));
 const completions = root.complete("");
 
 console.log(JSON.stringify(completions, null, 4));
+```
+
+## RadixSort
+
+```javascript
+console.log(JSON.stringify(radixSort([5, 15, 200, 18, 1]), null, 3));
+
+function getMaximumNumberLength(arr) {
+  let number = 0;
+  for (let i = 0; i < arr.length; i++) {
+    const currentLength = arr[i].toString().length;
+    number = currentLength > number ? currentLength : number;
+  }
+  return number;
+}
+
+function getDigit(currentNumber, place, longestNumberLength) {
+  const str = currentNumber.toString();
+  const size = str.length;
+  const mod = longestNumberLength - size;
+  return str[place - mod] || 0;
+}
+
+function radixSort(arr) {
+  const longestNumberLength = getMaximumNumberLength(arr);
+
+  const buckets = new Array(10).fill([]).map(() => []);
+
+  for (let i = longestNumberLength - 1; i >= 0; i--) {
+    //queueing
+    while (arr.length) {
+      const current = arr.shift();
+      buckets[getDigit(current, i, longestNumberLength)].push(current);
+    }
+
+    //dequeueing
+    for (let i = 0; i < 10; i++) {
+      while (buckets[i].length) {
+        const current = buckets[i].shift();
+        arr.push(current);
+      }
+    }
+  }
+  return arr;
+}
 ```
