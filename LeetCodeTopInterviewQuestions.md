@@ -6,7 +6,7 @@
 
 ## Array
 
-**[1.1] Remove Duplicates from Sorted Array [click_here](https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/727/)**
+**[1.1] Remove Duplicates from Sorted Array [link](https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/727/)**
 
 ```javascript
 var removeDuplicates = function (nums) {
@@ -22,5 +22,20 @@ var removeDuplicates = function (nums) {
   }
 
   return count + 1;
+};
+```
+
+**[1.2] best-time-to-buy-and-sell-stock-ii [link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/submissions/)**
+
+```javascript
+var maxProfit = function (prices) {
+  let maxProfit = 0;
+  for (let i = 1; i < prices.length; i++) {
+    if (prices[i] > prices[i - 1]) {
+      maxProfit += prices[i] - prices[i - 1];
+    }
+  }
+
+  return maxProfit;
 };
 ```
