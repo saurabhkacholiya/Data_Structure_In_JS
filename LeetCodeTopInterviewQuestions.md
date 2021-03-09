@@ -4,6 +4,7 @@
 
 1. [Array](#array)
 1. [String](#string)
+1. [Sorting and Searching](#sorting)
 
 ## Array
 
@@ -115,4 +116,28 @@ function getValidStr(str) {
 
   return newStr;
 }
+```
+
+## Sorting and Searching
+
+**[3.1] Merge Sorted Array [link](https://leetcode.com/explore/interview/card/top-interview-questions-easy/96/sorting-and-searching/587/)**
+
+```javascript
+var merge = function (nums1, m, nums2, n) {
+  let p1 = m - 1;
+  let p2 = n - 1;
+
+  for (let p = m + n - 1; p >= 0; p--) {
+    if (p2 < 0) {
+      break;
+    }
+    if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+      nums1[p] = nums1[p1];
+      p1 -= 1;
+    } else {
+      nums1[p] = nums2[p2];
+      p2 -= 1;
+    }
+  }
+};
 ```
