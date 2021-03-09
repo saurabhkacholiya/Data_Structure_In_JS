@@ -4,7 +4,7 @@
 
 1. [Array](#array)
 1. [String](#string)
-1. [Sorting and Searching](#sorting)
+1. [Sorting](#sorting)
 
 ## Array
 
@@ -118,7 +118,7 @@ function getValidStr(str) {
 }
 ```
 
-## Sorting and Searching
+## Sorting
 
 **[3.1] Merge Sorted Array [link](https://leetcode.com/explore/interview/card/top-interview-questions-easy/96/sorting-and-searching/587/)**
 
@@ -139,5 +139,27 @@ var merge = function (nums1, m, nums2, n) {
       p2 -= 1;
     }
   }
+};
+```
+
+**[3.2] First Bad Version [link](https://leetcode.com/problems/first-bad-version/submissions/)**
+
+```javascript
+var solution = function (isBadVersion) {
+  return function (n) {
+    let start = 1;
+    let end = n;
+
+    while (start <= end) {
+      let mid = Math.floor(start + (end - start) / 2);
+      if (isBadVersion(mid)) {
+        end = mid - 1;
+      } else {
+        start = mid + 1;
+      }
+    }
+
+    return start;
+  };
 };
 ```
