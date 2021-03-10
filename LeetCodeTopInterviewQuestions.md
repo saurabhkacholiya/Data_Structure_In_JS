@@ -5,7 +5,7 @@
 1. [Array](#array)
 1. [String](#string)
 1. [Sorting](#sorting)
-1. [DynamicProblem](#dynamic)
+1. [Dynamic_Problems](#Dynamic_Problems)
 
 ## Array
 
@@ -165,7 +165,7 @@ var solution = function (isBadVersion) {
 };
 ```
 
-## DynamicProblem
+## Dynamic_Problems
 
 **[4.1] Climbing Stairs [link](https://leetcode.com/problems/climbing-stairs/)**
 
