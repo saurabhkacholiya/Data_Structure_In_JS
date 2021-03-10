@@ -6,6 +6,7 @@
 1. [String](#string)
 1. [Sorting](#sorting)
 1. [Dynamic_Problems](#Dynamic_Problems)
+1. [LinkedList](#linkedList)
 
 ## Array
 
@@ -210,5 +211,18 @@ var maxProfit = function (prices) {
   }
 
   return maxProfit;
+};
+```
+
+## LinkedList
+
+**[5.1] Delete Node in a Linked List [link](https://leetcode.com/problems/delete-node-in-a-linked-list/)**
+
+```javascript
+var deleteNode = function (node) {
+  const temp = node.next;
+  node.val = temp.val;
+  node.next = temp.next;
+  temp.next = null;
 };
 ```
