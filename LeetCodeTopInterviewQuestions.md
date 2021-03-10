@@ -5,6 +5,7 @@
 1. [Array](#array)
 1. [String](#string)
 1. [Sorting](#sorting)
+1. [DynamicProblem](#dynamic)
 
 ## Array
 
@@ -161,5 +162,53 @@ var solution = function (isBadVersion) {
 
     return start;
   };
+};
+```
+
+## DynamicProblem
+
+**[4.1] Climbing Stairs [link](https://leetcode.com/problems/climbing-stairs/)**
+
+```javascript
+var climbStairs = function (n) {
+  const memo = {};
+  const count = getClimbCount(0, n, memo);
+  return count;
+};
+
+function getClimbCount(i, n, memo) {
+  if (i == n) {
+    return 1;
+  }
+  if (i > n) {
+    return 0;
+  }
+
+  if (memo[i]) {
+    return memo[i];
+  }
+
+  memo[i] = getClimbCount(i + 1, n, memo) + getClimbCount(i + 2, n, memo);
+
+  return memo[i];
+}
+```
+
+**[4.2] Best Time to Buy and Sell Stock [link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)**
+
+```javascript
+var maxProfit = function (prices) {
+  let maxProfit = 0;
+  let minStock = prices[0];
+
+  for (let i = 1; i < prices.length; i++) {
+    if (minStock < prices[i]) {
+      maxProfit = Math.max(maxProfit, prices[i] - minStock);
+    } else {
+      minStock = prices[i];
+    }
+  }
+
+  return maxProfit;
 };
 ```
