@@ -59,6 +59,65 @@ var rotate = function (nums, k) {
 };
 ```
 
+**[1.4] Contains Duplicate [link](https://leetcode.com/problems/contains-duplicate/)**
+
+```javascript
+var containsDuplicate = function (nums) {
+  let obj = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    if (obj[nums[i]]) {
+      obj[nums[i]] = obj[nums[i]] + 1;
+    } else {
+      obj[nums[i]] = 1;
+    }
+  }
+
+  for (let i in obj) {
+    if (obj[i] >= 2) {
+      return true;
+    }
+  }
+
+  return false;
+};
+```
+
+**[1.5] Single Number [link](https://leetcode.com/problems/single-number/)**
+
+```javascript
+var singleNumber = function (nums) {
+  let value = 0;
+  for (let i = 0; i < nums.length; i++) {
+    value ^= nums[i];
+  }
+  return value;
+};
+```
+
+**[1.6] Move Zeroes [link](https://leetcode.com/problems/move-zeroes/)**
+
+```javascript
+var moveZeroes = function (nums) {
+  // Use two pointer technique
+  // 1 pointer will hold the index from which the zero
+  // start after swapping all the non zero values before
+
+  let lastNonZero = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] != 0) {
+      nums[lastNonZero] = nums[i];
+      lastNonZero += 1;
+    }
+  }
+
+  for (let i = lastNonZero; i < nums.length; i++) {
+    nums[i] = 0;
+  }
+};
+```
+
 ## String
 
 **[2.1] Reverse String [link](https://leetcode.com/explore/featured/card/top-interview-questions-easy/127/strings/879/)**
