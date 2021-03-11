@@ -7,6 +7,7 @@
 1. [Sorting](#sorting)
 1. [Dynamic_Problems](#Dynamic_Problems)
 1. [LinkedList](#linkedList)
+1. [Tree](#tree)
 
 ## Array
 
@@ -225,4 +226,45 @@ var deleteNode = function (node) {
   node.next = temp.next;
   temp.next = null;
 };
+```
+
+## Tree
+
+**[6.1] Maximum Depth of Binary Tree [link](https://leetcode.com/problems/maximum-depth-of-binary-tree/)**
+
+```javascript
+function maxDepth(root) {
+  if (root === null) return 0;
+
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right);
+
+  return Math.max(left, right) + 1;
+}
+```
+
+**[6.2] Validate Binary Search Tree [link](https://leetcode.com/problems/validate-binary-search-tree/)**
+
+```javascript
+var isValidBST = function (root) {
+  return validateRoot(root, null, null);
+};
+
+function validateRoot(root, low, high) {
+  if (root == null) {
+    return true;
+  }
+
+  if (
+    (low !== null && root.val <= low) ||
+    (high !== null && root.val >= high)
+  ) {
+    return false;
+  }
+
+  return (
+    validateRoot(root.right, root.val, high) &&
+    validateRoot(root.left, low, root.val)
+  );
+}
 ```
