@@ -53,3 +53,54 @@ var lengthOfLongestSubstring = function (s) {
   return ans;
 };
 ```
+
+**[1.3] String to Integer (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
+
+```javascript
+// time complexity O(N) and space complexity O(n)
+if (!s.length) return 0;
+
+let newStr = "";
+let addMinusSymbol = false;
+let numberStr = "";
+
+if (s[0] === " ") {
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== " ") {
+      newStr = s.substr(i);
+      break;
+    }
+  }
+} else {
+  newStr = s;
+}
+
+if (newStr[0] == "-") {
+  addMinusSymbol = true;
+  newStr = newStr.substr(1);
+} else if (newStr[0] == "+") {
+  addMinusSymbol = false;
+  newStr = newStr.substr(1);
+}
+
+if (newStr.charCodeAt(0) >= 48 && newStr.charCodeAt(0) <= 57) {
+  for (let i = 0; i < newStr.length; i++) {
+    if (newStr.charCodeAt(i) >= 48 && newStr.charCodeAt(i) <= 57) {
+      numberStr += newStr[i];
+    } else {
+      break;
+    }
+  }
+} else {
+  return 0;
+}
+
+if (addMinusSymbol) {
+  numberStr = "-" + numberStr;
+  let minValue = Math.pow(-2, 31);
+  return Number(numberStr) < minValue ? minValue : Number(numberStr);
+} else {
+  let maxValue = Math.pow(2, 31) - 1;
+  return Number(numberStr) > maxValue ? maxValue : Number(numberStr);
+}
+```
