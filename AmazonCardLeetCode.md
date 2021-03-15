@@ -3,6 +3,7 @@
 ## Table of Contents
 
 1. [Array](#array)
+1. [DynamicProblem](#dynamicProblem)
 
 ## Array
 
@@ -103,4 +104,42 @@ if (addMinusSymbol) {
   let maxValue = Math.pow(2, 31) - 1;
   return Number(numberStr) > maxValue ? maxValue : Number(numberStr);
 }
+```
+
+## DynamicProblem
+
+**[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
+
+```javascript
+// time complexity O(i * j) and space complexity O(n)
+var coinChange = function (coins, amount) {
+  // create a dp array that will store value from 0 to amount that why amount + 1 as array are 0 based
+  // dp array index is the coin value example 0 index is 0 coin value , 1 index is 1 coin value
+  // and dp array value on the particular index dp[index] is the minimum number of coins used to get the amount that is equal to index of dp array
+
+  // j is dp array index
+  // i is coins array value
+
+  //   j-> 0 1 2 3 4 5
+  // i
+  // 1     0 1 2 3 4 5 -> dp array after 1st iteration where coins value is coins[i] = 1
+  // 2     0 1 1 2 2 3 -> dp array after 2st iteration where coins value is coins[i] = 2
+  // 3     0 1 1 1 2 2 -> dp array at final iteration where coins value is coins[i] = 3
+
+  const dp = new Array(amount + 1).fill(amount + 1);
+
+  // as you can't have any combination of coins to make value 0 so make it 0.
+  dp[0] = 0;
+
+  for (let i = 0; i < coins.length; i++) {
+    for (let j = 0; j < dp.length; j++) {
+      if (coins[i] <= j) {
+        // dp[j - coins[i]] doing this to get precomputed value
+        dp[j] = Math.min(dp[j], 1 + dp[j - coins[i]]);
+      }
+    }
+  }
+
+  return dp[amount] > amount ? -1 : dp[amount];
+};
 ```

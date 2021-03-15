@@ -52,7 +52,7 @@ var lastStoneWeight = function (stones) {
 };
 ```
 
-**[1.2] Convert Binary Number in a Linked List to Integer [link](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/)**
+**[1.3] Convert Binary Number in a Linked List to Integer [link](https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/)**
 
 ```javascript
 // time complexity O(n) and space complexity O(n)
