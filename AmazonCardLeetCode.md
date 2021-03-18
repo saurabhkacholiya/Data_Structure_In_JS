@@ -4,6 +4,8 @@
 
 1. [Array](#array)
 1. [DynamicProblem](#dynamicProblem)
+1. [Recursion](#recursion)
+1. [Trees and Graph](#treeAndGraph)
 
 ## Array
 
@@ -59,51 +61,104 @@ var lengthOfLongestSubstring = function (s) {
 
 ```javascript
 // time complexity O(N) and space complexity O(n)
-if (!s.length) return 0;
+var myAtoi = function (s) {
+  if (!s.length) return 0;
 
-let newStr = "";
-let addMinusSymbol = false;
-let numberStr = "";
+  let newStr = "";
+  let addMinusSymbol = false;
+  let numberStr = "";
 
-if (s[0] === " ") {
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] !== " ") {
-      newStr = s.substr(i);
-      break;
+  if (s[0] === " ") {
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] !== " ") {
+        newStr = s.substr(i);
+        break;
+      }
+    }
+  } else {
+    newStr = s;
+  }
+
+  if (newStr[0] == "-") {
+    addMinusSymbol = true;
+    newStr = newStr.substr(1);
+  } else if (newStr[0] == "+") {
+    addMinusSymbol = false;
+    newStr = newStr.substr(1);
+  }
+
+  if (newStr.charCodeAt(0) >= 48 && newStr.charCodeAt(0) <= 57) {
+    for (let i = 0; i < newStr.length; i++) {
+      if (newStr.charCodeAt(i) >= 48 && newStr.charCodeAt(i) <= 57) {
+        numberStr += newStr[i];
+      } else {
+        break;
+      }
+    }
+  } else {
+    return 0;
+  }
+
+  if (addMinusSymbol) {
+    numberStr = "-" + numberStr;
+    let minValue = Math.pow(-2, 31);
+    return Number(numberStr) < minValue ? minValue : Number(numberStr);
+  } else {
+    let maxValue = Math.pow(2, 31) - 1;
+    return Number(numberStr) > maxValue ? maxValue : Number(numberStr);
+  }
+};
+```
+
+**[1.4] Transpose Matrix [link](https://leetcode.com/problems/transpose-matrix/)**
+
+```javascript
+var transpose = function (matrix) {
+  const row = matrix.length;
+  const columns = matrix[0].length;
+
+  const transPoseMatrix = new Array(columns).fill([]).map((_) => []);
+
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < columns; j++) {
+      transPoseMatrix[j][i] = matrix[i][j];
     }
   }
-} else {
-  newStr = s;
-}
 
-if (newStr[0] == "-") {
-  addMinusSymbol = true;
-  newStr = newStr.substr(1);
-} else if (newStr[0] == "+") {
-  addMinusSymbol = false;
-  newStr = newStr.substr(1);
-}
+  return transPoseMatrix;
+};
+```
 
-if (newStr.charCodeAt(0) >= 48 && newStr.charCodeAt(0) <= 57) {
-  for (let i = 0; i < newStr.length; i++) {
-    if (newStr.charCodeAt(i) >= 48 && newStr.charCodeAt(i) <= 57) {
-      numberStr += newStr[i];
-    } else {
-      break;
+**[1.5] Rotate Image [link](https://leetcode.com/problems/rotate-image/)**
+
+```javascript
+var rotate = function (matrix) {
+  const row = matrix.length;
+  const column = matrix[0].length;
+
+  for (let i = 0; i < row; i++) {
+    for (let j = i; j < column; j++) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
     }
   }
-} else {
-  return 0;
-}
 
-if (addMinusSymbol) {
-  numberStr = "-" + numberStr;
-  let minValue = Math.pow(-2, 31);
-  return Number(numberStr) < minValue ? minValue : Number(numberStr);
-} else {
-  let maxValue = Math.pow(2, 31) - 1;
-  return Number(numberStr) > maxValue ? maxValue : Number(numberStr);
-}
+  for (let rowIdx = 0; rowIdx < row; rowIdx++) {
+    let i = 0;
+    let j = matrix[rowIdx].length - 1;
+
+    while (i < j) {
+      const temp = matrix[rowIdx][i];
+      matrix[rowIdx][i] = matrix[rowIdx][j];
+      matrix[rowIdx][j] = temp;
+      i += 1;
+      j -= 1;
+    }
+  }
+
+  return matrix;
+};
 ```
 
 ## DynamicProblem
@@ -141,5 +196,66 @@ var coinChange = function (coins, amount) {
   }
 
   return dp[amount] > amount ? -1 : dp[amount];
+};
+```
+
+## Recursion
+
+**[3.1] Letter Combinations of a Phone Number [link](https://leetcode.com/problems/string-to-integer-atoi/)**
+
+```javascript
+var letterCombinations = function (digits) {
+  if (!digits || !digits.length) return [];
+  let map = {
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz",
+  };
+
+  const outputArr = [];
+
+  const getPermutation = (index, str) => {
+    if (index == digits.length) {
+      outputArr.push(str);
+    } else {
+      for (const character of map[digits[index]]) {
+        getPermutation(index + 1, str + character);
+      }
+    }
+  };
+
+  getPermutation(0, "");
+
+  return outputArr;
+};
+```
+
+## Trees and Graph
+
+**[4.1] Symmetric Tree [link](https://leetcode.com/problems/symmetric-tree/)**
+
+```javascript
+var isSymmetric = function (root) {
+  const queue = [root, root];
+
+  while (queue.length) {
+    const t1 = queue.pop();
+    const t2 = queue.pop();
+
+    if (t1 == null && t2 == null) continue;
+    if (t1 == null || t2 == null) return false;
+    if (t1.val !== t2.val) return false;
+    queue.push(t1.left);
+    queue.push(t2.right);
+    queue.push(t1.right);
+    queue.push(t2.left);
+  }
+
+  return true;
 };
 ```
