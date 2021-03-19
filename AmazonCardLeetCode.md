@@ -372,3 +372,35 @@ var levelOrder = function (root) {
   return output;
 };
 ```
+
+**[4.3] Binary Tree Zigzag Level Order Traversal [link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)**
+
+```javascript
+var zigzagLevelOrder = function (root) {
+  if (!root) return [];
+  const queue = [root];
+
+  let leftFirst = true; // because we are adding root first
+  let output = [];
+  while (queue.length) {
+    let size = queue.length;
+    let level = [];
+
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+      level.push(node.val);
+    }
+
+    output.push(leftFirst ? level : level.reverse());
+    leftFirst = !leftFirst;
+  }
+
+  return output;
+};
+```
