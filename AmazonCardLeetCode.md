@@ -209,6 +209,36 @@ var trap = function (height) {
 
   return max;
 };
+
+// optimized Solution o(n) with o(1)
+
+var trap = function (height) {
+  let max = 0;
+  let left = 0;
+  let right = height.length - 1;
+  let rightMax = 0;
+  let leftMax = 0;
+
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= leftMax) {
+        leftMax = height[left];
+      } else {
+        max += leftMax - height[left];
+      }
+      left += 1;
+    } else {
+      if (height[right] >= rightMax) {
+        rightMax = height[right];
+      } else {
+        max += rightMax - height[right];
+      }
+      right -= 1;
+    }
+  }
+
+  return max;
+};
 ```
 
 ## DynamicProblem
