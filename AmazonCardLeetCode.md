@@ -5,7 +5,7 @@
 1. [Array](#array)
 1. [DynamicProblem](#dynamicProblem)
 1. [Recursion](#recursion)
-1. [Trees and Graph](#treeAndGraph)
+1. [TreesAndGraph](#treesAndGraph)
 
 ## Array
 
@@ -315,7 +315,7 @@ var letterCombinations = function (digits) {
 };
 ```
 
-## Trees and Graph
+## TreesAndGraph
 
 **[4.1] Symmetric Tree [link](https://leetcode.com/problems/symmetric-tree/)**
 
@@ -337,5 +337,38 @@ var isSymmetric = function (root) {
   }
 
   return true;
+};
+```
+
+**[4.2] Binary Tree Level Order Traversal [link](https://leetcode.com/problems/binary-tree-level-order-traversal/)**
+
+```javascript
+var levelOrder = function (root) {
+  if (!root) return [];
+  const queue = [root];
+  const output = [];
+
+  while (queue.length) {
+    const size = queue.length;
+    const level = [];
+
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+
+      level.push(node.val);
+    }
+
+    output.push(level);
+  }
+
+  return output;
 };
 ```
