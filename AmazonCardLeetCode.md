@@ -161,6 +161,28 @@ var rotate = function (matrix) {
 };
 ```
 
+**[1.6] Container With Most Water [link](https://leetcode.com/problems/container-with-most-water/)**
+
+```javascript
+var maxArea = function (height) {
+  let max = 0;
+  let left = 0;
+  let right = height.length - 1;
+
+  while (left < right) {
+    let maxArea = Math.min(height[left], height[right]);
+    max = Math.max(max, maxArea * (right - left));
+    if (height[left] < height[right]) {
+      left += 1;
+    } else {
+      right -= 1;
+    }
+  }
+
+  return max;
+};
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
