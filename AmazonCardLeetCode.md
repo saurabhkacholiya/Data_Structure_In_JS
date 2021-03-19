@@ -183,6 +183,34 @@ var maxArea = function (height) {
 };
 ```
 
+**[1.7] Trapping Rain Water [link](https://leetcode.com/problems/trapping-rain-water/)**
+
+```javascript
+var trap = function (height) {
+  let max = 0;
+
+  for (let i = 1; i < height.length; i++) {
+    let leftMax = 0;
+    let rightMax = 0;
+
+    for (let j = 0; j < i; j++) {
+      leftMax = Math.max(leftMax, height[j]);
+    }
+
+    for (let k = i; k < height.length; k++) {
+      rightMax = Math.max(rightMax, height[k]);
+    }
+
+    const water = Math.min(leftMax, rightMax) - height[i];
+    if (water > 0) {
+      max += water;
+    }
+  }
+
+  return max;
+};
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
