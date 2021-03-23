@@ -473,7 +473,10 @@ var maxPathSum = function (root) {
     let left = Math.max(0, dfs(node.left));
     let right = Math.max(0, dfs(node.right));
     let total = node.val + left + right;
-    maxSum = Math.max(maxSum, total);
+    maxSum = Math.max(maxSum, total); // get the current Max
+    // take the current node and what ever maximum child value
+    // and pass that value up the recursion and check if we have new max sum with
+    // current node parent
     return node.val + Math.max(left, right);
   }
 };
