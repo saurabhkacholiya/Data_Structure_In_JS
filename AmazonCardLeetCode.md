@@ -457,3 +457,24 @@ var lowestCommonAncestor = function (root, p, q) {
   return root;
 };
 ```
+
+**[4.6] Binary Tree Maximum Path Sum [link](https://leetcode.com/problems/binary-tree-maximum-path-sum/)**
+
+```javascript
+var maxPathSum = function (root) {
+  let maxSum = Number.MIN_SAFE_INTEGER;
+
+  dfs(root);
+
+  return maxSum;
+
+  function dfs(node) {
+    if (!node) return 0;
+    let left = Math.max(0, dfs(node.left));
+    let right = Math.max(0, dfs(node.right));
+    let total = node.val + left + right;
+    maxSum = Math.max(maxSum, total);
+    return node.val + Math.max(left, right);
+  }
+};
+```
