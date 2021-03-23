@@ -3,6 +3,7 @@
 ## Table of Contents
 
 1. [Dream11](#Dream11)
+1. [Nvidia](#nvidia)
 
 ## Dream11
 
@@ -63,5 +64,55 @@ var getDecimalValue = function (head) {
     head = head.next;
   }
   return parseInt(binaryStr, 2);
+};
+```
+
+## Nvidia
+
+**[2.1] Count Binary Substrings [link](https://leetcode.com/problems/count-binary-substrings/)**
+
+```javascript
+// time complexity O(n) and space complexity O(n)
+var countBinarySubstrings = function (s) {
+  let arr = [];
+  let ans = 0;
+
+  let numberOfZero = 0;
+  let numberOfOne = 0;
+
+  // calculate continues no of zero and continues no of one's add into arr
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "0") {
+      if (numberOfOne) {
+        arr.push(numberOfOne);
+        numberOfOne = 0;
+      }
+      numberOfZero += 1;
+    } else {
+      if (numberOfZero) {
+        arr.push(numberOfZero);
+        numberOfZero = 0;
+      }
+      numberOfOne += 1;
+    }
+  }
+
+  // push any last number of zero's or one's in arr
+  if (numberOfOne) {
+    arr.push(numberOfOne);
+  } else if (numberOfZero) {
+    arr.push(numberOfZero);
+  }
+
+  // example "00111"  our array will look like [2,3] 2 -> zero and 3 ones
+  // so maximum no of subArray can be formed is 0011 and 01 that is 2
+  // so that's why taking min of both value
+  for (let i = 0; i < arr.length; i++) {
+    const current = arr[i];
+    const next = arr[i + 1] ? arr[i + 1] : 0;
+    ans += Math.min(current, next);
+  }
+
+  return ans;
 };
 ```
