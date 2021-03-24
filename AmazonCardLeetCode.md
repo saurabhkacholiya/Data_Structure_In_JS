@@ -241,6 +241,31 @@ var trap = function (height) {
 };
 ```
 
+**[1.8] Group Anagrams [link](https://leetcode.com/problems/group-anagrams/)**
+
+```javascript
+var groupAnagrams = function (strArr) {
+  let anagramArr = [];
+  let map = {};
+
+  for (let i = 0; i < strArr.length; i++) {
+    let sortedStr = strArr[i].split("").sort().join("");
+
+    if (!map[sortedStr]) {
+      map[sortedStr] = [];
+    }
+
+    map[sortedStr].push(strArr[i]);
+  }
+
+  for (let item in map) {
+    anagramArr.push(map[item]);
+  }
+
+  return anagramArr;
+};
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
