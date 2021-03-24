@@ -266,6 +266,22 @@ var groupAnagrams = function (strArr) {
 };
 ```
 
+**[1.9] Missing Number [link](https://leetcode.com/problems/missing-number/)**
+
+```javascript
+var missingNumber = function (nums) {
+  let totalLen = nums.length;
+
+  let totalVal = Math.floor(((totalLen + 1) * totalLen) / 2);
+
+  for (let i = 0; i < nums.length; i++) {
+    totalVal -= nums[i];
+  }
+
+  return totalVal;
+};
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
