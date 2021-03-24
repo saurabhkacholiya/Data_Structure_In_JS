@@ -282,6 +282,30 @@ var missingNumber = function (nums) {
 };
 ```
 
+**[1.1.0] First Unique Character in a String [link](https://leetcode.com/problems/first-unique-character-in-a-string/)**
+
+```javascript
+var firstUniqChar = function (s) {
+  let map = {};
+
+  for (let i = 0; i < s.length; i++) {
+    if (map[s[i]]) {
+      map[s[i]] = map[s[i]] + 1;
+    } else {
+      map[s[i]] = 1;
+    }
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    if (map[s[i]] == 1) {
+      return i;
+    }
+  }
+
+  return -1;
+};
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
