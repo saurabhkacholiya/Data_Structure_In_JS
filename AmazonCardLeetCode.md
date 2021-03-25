@@ -306,6 +306,33 @@ var firstUniqChar = function (s) {
 };
 ```
 
+**[1.1.0] Subarray Sum Equals K [link](https://leetcode.com/problems/subarray-sum-equals-k/)**
+
+```javascript
+// o(n^3) time and space :- o(1)
+var subArraySum = function (nums, k) {
+  let count = 0;
+
+  for (let start = 0; start < nums.length; start++) {
+    for (let end = start + 1; end < nums.length; end++) {
+      let sum = 0;
+
+      for (let i = start; i <= end; i++) {
+        sum += nums[i];
+      }
+
+      if (sum === k) {
+        count += 1;
+      }
+    }
+  }
+  return count;
+};
+
+// optimized using map
+// time o(n) and space o(1)
+```
+
 ## DynamicProblem
 
 **[2.1] Coin Change (atoi) [link](https://leetcode.com/problems/string-to-integer-atoi/)**
@@ -378,6 +405,64 @@ var letterCombinations = function (digits) {
 
   return outputArr;
 };
+```
+
+**[3.2] Generate Parentheses [link](https://leetcode.com/problems/generate-parentheses/)**
+
+```javascript
+var generateParenthesis = function (n) {
+  const output = [];
+  const strArr = [];
+  for (let i = 0; i < n; i++) {
+    strArr.push("(");
+    strArr.push(")");
+  }
+  getRecursion(strArr, output, 0, {});
+  return output;
+};
+
+function getRecursion(str, output, i, map) {
+  if (i === str.length - 1 && isValidParenthesis(str)) {
+    const newCombination = str.join("");
+
+    if (!map[newCombination]) {
+      output.push(newCombination);
+
+      map[newCombination] = true;
+      return;
+    }
+  } else {
+    for (let j = i; j < str.length; j++) {
+      swap(i, j, str);
+      getRecursion(str, output, i + 1, map);
+      swap(i, j, str);
+    }
+  }
+}
+
+function swap(i, j, arr) {
+  const temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+function isValidParenthesis(str) {
+  if (str[0] === ")") return false;
+  let arr = [];
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === "(") {
+      arr.push("(");
+    } else {
+      if (arr[arr.length - 1] === "(") {
+        arr.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+
+  return arr.length === 0;
+}
 ```
 
 ## TreesAndGraph
