@@ -410,6 +410,7 @@ var letterCombinations = function (digits) {
 **[3.2] Generate Parentheses [link](https://leetcode.com/problems/generate-parentheses/)**
 
 ```javascript
+// un-optimized answer
 var generateParenthesis = function (n) {
   const output = [];
   const strArr = [];
@@ -462,6 +463,30 @@ function isValidParenthesis(str) {
   }
 
   return arr.length === 0;
+}
+
+// optimized answer
+var generateParenthesis = function (n) {
+  const outputArr = [];
+  helper("", 0, 0, n, outputArr);
+  return outputArr;
+};
+
+function helper(str, open, close, n, outputArr) {
+  if (str.length === 2 * n) {
+    outputArr.push(str);
+    return;
+  }
+
+  if (open < n) {
+    const newStr = str + "(";
+    helper(newStr, open + 1, close, n, outputArr);
+  }
+
+  if (close < open) {
+    const newStr = str + ")";
+    helper(newStr, open, close + 1, n, outputArr);
+  }
 }
 ```
 
