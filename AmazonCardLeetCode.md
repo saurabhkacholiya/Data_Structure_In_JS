@@ -490,6 +490,54 @@ function helper(str, open, close, n, outputArr) {
 }
 ```
 
+**[3.3] Word Search [link](https://leetcode.com/problems/word-search/)**
+
+```javascript
+var exist = function (board, word) {
+  let count = 0;
+
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      if (board[row][col] === word[0] && dfs(board, row, col, count, word)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
+
+function dfs(board, row, col, count, word) {
+  if (word.length === count) {
+    return true;
+  }
+
+  if (
+    row < 0 ||
+    row >= board.length ||
+    col < 0 ||
+    col >= board[0].length ||
+    board[row][col] !== word[count] ||
+    board[row][col] === "x"
+  ) {
+    return false;
+  }
+
+  const temp = board[row][col];
+  board[row][col] = "x";
+
+  let bol =
+    dfs(board, row + 1, col, count + 1, word) ||
+    dfs(board, row - 1, col, count + 1, word) ||
+    dfs(board, row, col + 1, count + 1, word) ||
+    dfs(board, row, col - 1, count + 1, word);
+
+  board[row][col] = temp;
+
+  return bol;
+}
+```
+
 ## TreesAndGraph
 
 **[4.1] Symmetric Tree [link](https://leetcode.com/problems/symmetric-tree/)**
