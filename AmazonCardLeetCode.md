@@ -282,7 +282,7 @@ var missingNumber = function (nums) {
 };
 ```
 
-**[1.1.0] First Unique Character in a String [link](https://leetcode.com/problems/first-unique-character-in-a-string/)**
+**[1.10] First Unique Character in a String [link](https://leetcode.com/problems/first-unique-character-in-a-string/)**
 
 ```javascript
 var firstUniqChar = function (s) {
@@ -306,7 +306,7 @@ var firstUniqChar = function (s) {
 };
 ```
 
-**[1.1.0] Subarray Sum Equals K [link](https://leetcode.com/problems/subarray-sum-equals-k/)**
+**[1.11] Subarray Sum Equals K [link](https://leetcode.com/problems/subarray-sum-equals-k/)**
 
 ```javascript
 // o(n^3) time and space :- o(1)
@@ -331,6 +331,65 @@ var subArraySum = function (nums, k) {
 
 // optimized using map
 // time o(n) and space o(1)
+```
+
+**[1.12] Integer to Roman [link](https://leetcode.com/problems/integer-to-roman/)**
+
+```javascript
+var intToRoman = function (num) {
+  let symbol = {
+    M: 1000,
+    CM: 900, // edge case
+    D: 500,
+    CD: 400, // edge case
+    C: 100,
+    XC: 90, // edge case
+    L: 50,
+    XL: 40, // edge case
+    X: 10,
+    IX: 9, // edge case
+    V: 5,
+    IV: 4, // edge case
+    I: 1,
+  };
+
+  let str = "";
+
+  for (let i in symbol) {
+    let value = Math.floor(num / symbol[i]);
+    if (value) {
+      str += i.repeat(value);
+    }
+    num = Math.floor(num % symbol[i]);
+  }
+
+  return str;
+};
+```
+
+**[1.13] Roman to Integer [link](https://leetcode.com/problems/roman-to-integer/)**
+
+```javascript
+var romanToInt = function (s) {
+  let value = 0;
+  let symbols = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+
+  for (let i = 0; i < s.length; i++) {
+    symbols[s[i]] < symbols[s[i + 1]]
+      ? (value += symbols[s[i]])
+      : (value -= symbols[s[i]]);
+  }
+
+  return Math.abs(value);
+};
 ```
 
 ## DynamicProblem
