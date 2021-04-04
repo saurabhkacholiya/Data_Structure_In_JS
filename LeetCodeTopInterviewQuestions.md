@@ -118,6 +118,28 @@ var moveZeroes = function (nums) {
 };
 ```
 
+**[1.7] Move Zeroes [link](https://leetcode.com/problems/intersection-of-two-arrays-ii/)**
+
+```javascript
+var intersect = function (nums1, nums2) {
+  const map = {};
+  let outputArr = [];
+
+  for (let i = 0; i < nums1.length; i++) {
+    map[nums1[i]] = map[nums1[i]] ? map[nums1[i]] + 1 : 1;
+  }
+
+  for (let i = 0; i < nums2.length; i++) {
+    if (map[nums2[i]]) {
+      outputArr.push(nums2[i]);
+      map[nums2[i]] = map[nums2[i]] - 1;
+    }
+  }
+
+  return outputArr;
+};
+```
+
 ## String
 
 **[2.1] Reverse String [link](https://leetcode.com/explore/featured/card/top-interview-questions-easy/127/strings/879/)**
