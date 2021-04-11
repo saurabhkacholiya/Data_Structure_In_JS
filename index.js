@@ -1,51 +1,35 @@
 let arr = [10, 2, 4, 5, 123, 45];
 
-mergeSort(arr);
+console.log();
+
+const sortArr = mergeSort(arr);
+
+console.log(sortArr);
 
 function mergeSort(arr) {
-  createMergeSort(arr);
-
-  for (let i = arr.length - 1; i >= 0; i--) {
-    swap(0, i, arr);
-    siftDown(0, i - 1, arr);
-  }
-
-  console.log(arr);
+  if (arr.length === 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const leftArr = arr.slice(0, mid);
+  const rightArr = arr.slice(mid);
+  const left = mergeSort(leftArr);
+  const right = mergeSort(rightArr);
+  return helperMergeSort(left, right);
 }
 
-function createMergeSort(arr) {
-  const len = arr.length - 1;
-  const firstParent = Math.floor(len - 1 / 2);
+function helperMergeSort(left, right) {
+  const total = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
 
-  for (let currentIdx = firstParent; currentIdx >= 0; currentIdx--) {
-    siftDown(currentIdx, len, arr);
-  }
-}
-
-function siftDown(currentIdx, endIdx, heap) {
-  let childONe = currentIdx * 2 + 1;
-  while (childONe <= endIdx) {
-    const childTwo = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
-    let swapTo;
-
-    if (childTwo !== -1 && heap[childTwo] > heap[childONe]) {
-      swapTo = childTwo;
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      total.push(left[leftIndex]);
+      leftIndex += 1;
     } else {
-      swapTo = childONe;
-    }
-
-    if (heap[currentIdx] < heap[swapTo]) {
-      swap(currentIdx, swapTo, heap);
-      currentIdx = swapTo;
-      childONe = currentIdx * 2 + 1;
-    } else {
-      return;
+      total.push(right[rightIndex]);
+      rightIndex += 1;
     }
   }
-}
 
-function swap(i, j, arr) {
-  const temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
+  return [...total, ...left.slice(leftIndex), ...right.slice(rightIndex)];
 }
