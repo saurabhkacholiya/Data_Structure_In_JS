@@ -1,35 +1,82 @@
-let arr = [10, 2, 4, 5, 123, 45];
+const tree = {
+  value: 8,
+  left: {
+    value: 4,
+    left: {
+      value: 3,
+      left: {
+        value: 2,
+        left: null,
+        right: null,
+      },
+      right: null,
+    },
+    right: {
+      value: 5,
+      left: null,
+      right: {
+        value: 7,
+        left: {
+          value: 6,
+          left: null,
+          right: null,
+        },
+      },
+    },
+  },
+  right: {
+    value: 12,
+    left: {
+      value: 10,
+      left: {
+        value: 9,
+        left: null,
+        right: null,
+      },
+      right: {
+        value: 11,
+        left: null,
+        right: null,
+      },
+    },
+  },
+};
 
-console.log();
+const postOrderTraverse = (node, array) => {
+  if (!node) return array;
+  array = postOrderTraverse(node.left, array);
+  array = postOrderTraverse(node.right, array);
+  array.push(node.value);
+  return array;
+};
 
-const sortArr = mergeSort(arr);
+console.log(postOrderTraverse(tree, []));
 
-console.log(sortArr);
+// dfsPre(tree);
+// dfsIn(tree);
+dfsPost(tree);
 
-function mergeSort(arr) {
-  if (arr.length === 1) return arr;
-  const mid = Math.floor(arr.length / 2);
-  const leftArr = arr.slice(0, mid);
-  const rightArr = arr.slice(mid);
-  const left = mergeSort(leftArr);
-  const right = mergeSort(rightArr);
-  return helperMergeSort(left, right);
+// pre -> root left right
+// in -> left root right
+// post -> left right root
+
+function dfsPre(tree) {
+  if (tree === null) return;
+  console.log(tree.value);
+  if (tree.left) dfsPre(tree.left);
+  if (tree.right) dfsPre(tree.right);
 }
 
-function helperMergeSort(left, right) {
-  const total = [];
-  let leftIndex = 0;
-  let rightIndex = 0;
+function dfsIn(tree) {
+  if (!tree) return;
+  if (tree.left) dfsIn(tree.left);
+  console.log(tree.value);
+  if (tree.right) dfsIn(tree.right);
+}
 
-  while (leftIndex < left.length && rightIndex < right.length) {
-    if (left[leftIndex] < right[rightIndex]) {
-      total.push(left[leftIndex]);
-      leftIndex += 1;
-    } else {
-      total.push(right[rightIndex]);
-      rightIndex += 1;
-    }
-  }
-
-  return [...total, ...left.slice(leftIndex), ...right.slice(rightIndex)];
+function dfsPost(tree) {
+  if (!tree) return;
+  if (tree.left) dfsPost(tree.left);
+  if (tree.right) dfsPost(tree.right);
+  console.log(tree.value);
 }
