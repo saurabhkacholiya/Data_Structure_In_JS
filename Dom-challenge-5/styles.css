@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  background: #d4d4d4;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  height: 40px;
+  width: 500px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+h1 {
+  margin: 20px;
+}
+
+.button {
+  margin: 20px;
+  height: 40px;
+  width: 120px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.progress-bar {
+  background: #0052cc;
+  width: 0%;
+  height: 100%;
+}
