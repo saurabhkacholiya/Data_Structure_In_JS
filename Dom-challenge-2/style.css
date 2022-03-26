@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 40px;
+  background-color: #d4d4d4;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  height: 40px;
+  width: 120px;
+  font-size: 20px;
+  border-radius: 20px;
+  margin-right: 20px;
+}
+
+.input-color {
+  height: 40px;
+  width: 120px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.input-number {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 120px;
+  height: 40px;
+  padding: 20px;
+}
+
+.container {
+  --size: 4;
+  height: 800px;
+  display: grid;
+  grid-template-columns: repeat(var(--size), 1fr);
+  grid-template-rows: repeat(var(--size), 1fr);
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid black;
+  width: 100%;
+  margin: 40px;
+  border-radius: 2px;
+}
+
+.pixel {
+  background-color: rgb(61, 61, 61);
+  border-radius: 2px;
+}
