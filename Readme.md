@@ -1,5 +1,7 @@
 # DS Algorithm Questions in Javascript() {...}
 
+okay:
+
 _A mostly reasonable collection of technical software development interview questions solved in JS_
 
 ## Table of Contents
